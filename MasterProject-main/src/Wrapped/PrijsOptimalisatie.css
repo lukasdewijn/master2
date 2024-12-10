@@ -1,0 +1,124 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--oxford-blue); /* Blue background */
+    color: var(--ivory);
+}
+.page-container{
+    background: var(--ivory);
+    padding-top: 2rem;
+    height: 100%;
+}
+.prijs-optimalisatie-container {
+    background-color: var(--ivory);
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.prijs-optimalisatie-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.prijs-optimalisatie-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.prijs-optimalisatie-highlight {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--sandy-brown);
+    margin-bottom: 2rem;
+}
+
+.prijs-optimalisatie-items-container {
+    padding: 1rem;
+    padding-top: 2rem;
+    border-radius: 22px 22px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-content: space-evenly;
+    gap: 1.5rem;
+    width: 100%;
+    background: var(--oxford-blue);
+}
+
+.prijs-optimalisatie-item {
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.prijs-optimalisatie-item-name {
+    font-size: 1.2rem; /* Make the text larger */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 0.5rem; /* Add spacing below the text */
+    display: block; /* Ensures the margin applies properly */
+}
+
+.prijs-optimalisatie-item-1 {
+    background-color: var(--sandy-brown);
+    color: var(--oxford-blue);
+}
+
+.prijs-optimalisatie-item-2 {
+    background-color: var(--ivory);
+    color: var(--oxford-blue);
+}
+
+.prijs-optimalisatie-item-3 {
+    background-color: var(--light-cyan);
+    color: var(--oxford-blue);
+}
+
+.prijs-optimalisatie-item-4 {
+    background-color: var(--jordy-blue);
+    color: var(--oxford-blue);
+}
+
+.prijs-optimalisatie-item-5 {
+    background-color: var(--bice-blue);
+    color: var(--ivory);
+}
+
+.prijs-optimalisatie-price-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-end;
+}
+.current-price-details {
+    display: flex; /* Use Flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Ensure text aligns in the center */
+}
+.current-price-details p {
+    margin: 0;
+    font-size: 0.6rem; /* Adjust the size if necessary */
+}
+
+.prijs-optimalisatie-current-price,
+.prijs-optimalisatie-new-price,
+.prijs-optimalisatie-extra-per-month {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.prijs-optimalisatie-arrow {
+    font-size: 1.2rem;
+    font-weight: bold;
+}

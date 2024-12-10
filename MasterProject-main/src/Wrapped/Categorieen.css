@@ -1,0 +1,114 @@
+/* Container Styling */
+.categories-data-container {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--ivory);
+    color: var(--oxford-blue);
+    border-radius: 2rem 2rem 0 0;
+    padding: 1rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+
+
+}
+
+/* Title Styling */
+.categories-title-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+}
+
+.categories-title-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.categories-title-container h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+/* Legend Styling */
+.categories-legend {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.legend-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.legend-circle.jouw-zaak {
+    background-color: #AFCBFF; /* Light blue */
+}
+
+.legend-circle.gemiddeld {
+    background-color: #3A6EA5; /* Dark blue */
+}
+
+/* Bar Chart Styling */
+.categories-bars {
+    height: 70vh;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.category-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.category-name {
+    width: 25%;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.bars-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bar {
+    position: relative;
+    height: 1rem;
+    border-radius: 0.1rem 0.3rem 0.3rem 0.1rem;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bar.jouw-zaak {
+    background-color: #AFCBFF; /* Light blue */
+}
+
+.bar.gemiddeld {
+    background-color: #3A6EA5; /* Dark blue */
+}
+
+.bar-label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.stat{
+    display: flex;
+}

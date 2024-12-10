@@ -1,0 +1,43 @@
+.menu-frequency-container {
+    padding: 5rem 15rem 0 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--oxford-blue);
+}
+
+.menu-frequency-options-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; /* Spacing between the buttons */
+    width: 100%;
+    justify-items: center;
+}
+
+.menu-frequency-option-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 5rem;
+    background-color: #F9D8B4;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-frequency-option-button.selected {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-frequency-option-button:hover {
+    background-color: #f4b183;
+}

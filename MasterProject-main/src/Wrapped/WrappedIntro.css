@@ -1,0 +1,99 @@
+/* Container for the Wrapped Intro */
+.wrapped-intro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 105vh;
+    background-color: var(--oxford-blue); /* Background color for the container */
+}
+
+/* Card Stack */
+.card-stack {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* Individual Card Styling */
+.card {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10%);
+}
+
+/* Colors for each card */
+.card.sandybrown {
+    background-color: var(--sandy-brown);
+    z-index: 1;
+    top: 2rem;
+    height: 50rem;
+}
+
+.card.ivory {
+    background-color: var(--ivory);
+    z-index: 2;
+    top: 4rem;
+    height: 50rem;
+}
+
+.card.lightcyan {
+    background-color: #D7F9FF;
+    z-index: 3;
+    top: 6rem;
+    height: 50rem;
+}
+
+.card.jordyblue {
+    background-color: #AFCBFF;
+    z-index: 4;
+    top: 8rem;
+    height: 50rem;
+}
+
+.card.biceblue {
+    background-color: #3A6EA5;
+    z-index: 5;
+    top: 10rem;
+    height: 50rem;
+    bottom: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 4rem
+}
+
+/* Content inside the dark blue card */
+.card-content {
+    text-align: center;
+    color: var(--ivory);
+    font-family: 'Quicksand', sans-serif;
+}
+
+.card-content.h1.title {
+    font-size: 6rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 1.2rem;
+}
+
+/* Media Query for Mobile Sizes */
+@media (max-width: 768px) {
+    .card-stack {
+        height: 70vh;
+    }
+
+    .card-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .card-content p {
+        font-size: 1rem;
+    }
+}

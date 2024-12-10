@@ -1,0 +1,37 @@
+/* Basisinformatie.css */
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1.5rem; /* Adds space between form sections */
+    padding: 2.5rem 20rem 0 20rem;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    width: 40%; /* Each item takes 48% width to form two columns */
+    margin-bottom: 1rem;
+}
+
+.form-section label {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--oxford-blue);
+    margin-bottom: 0.5rem;
+}
+
+.form-section input {
+    padding: 0.8rem;
+    border: 0px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #F8D1AD; /* Light background for input */
+}
+
+

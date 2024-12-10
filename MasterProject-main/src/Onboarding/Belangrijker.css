@@ -1,0 +1,50 @@
+.belangrijker-container {
+    padding: 2.5rem 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--oxford-blue);
+}
+
+.belangrijker-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.belangrijker-options-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+.belangrijker-option-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #F9D8B4;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.belangrijker-option-button.selected {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.belangrijker-option-button:hover {
+    background-color: #f4b183;
+}

@@ -1,0 +1,121 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--oxford-blue); /* Blue background */
+    color: var(--ivory);
+}
+
+
+/* General styling */
+.specialiteit-container {
+    background-color: var(--oxford-blue);
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+}
+
+/* Title section */
+.titel-container {
+    width: 100%;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.specialiteit-titel {
+    font-size: 2rem;
+    color: var(--ivory);
+    margin-bottom: 0.5rem;
+}
+
+.specialiteit-subtitle {
+    font-size: 1rem;
+    color: var(--ivory);
+    margin-bottom: 1.5rem;
+}
+
+.specialiteit-section-description {
+    max-width: 80%;
+    font-size: 1rem;
+    text-align: center;
+    align-self: center;
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+/* Items container */
+.specialiteit-items-container {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 2rem 0;
+    border-radius: 1.5rem 1.5rem 0 0;
+    background: var(--ivory);
+}
+
+/* Bier items */
+.bier-item {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--oxford-blue);
+
+}
+
+.bier-item-1, .bier-item-2, .bier-item-3{
+    text-align: end;
+    border-radius: 0 1rem 1rem 0;
+}
+
+.bier-item-4, .bier-item-5, .bier-item-6 {
+    text-align: start;
+    border-radius: 1rem 0 0 1rem;
+    margin-left: auto; /* Zorg dat ze naar rechts schuiven */
+}
+
+
+.bier-item-1 {
+    background-color: var(--sandy-brown);
+    width: 90%; /* Longest */
+
+}
+
+.bier-item-2 {
+    background-color: var(--jordy-blue);
+    width: 75%; /* Medium */
+}
+
+.bier-item-3 {
+    background-color: var(--bice-blue);
+    width: 60%; /* Shortest */
+}
+
+.bier-item-4 {
+    background-color: var(--bice-blue);
+    width: 60%; /* Shortest */
+}
+
+.bier-item-5 {
+    background-color: var(--jordy-blue);
+    width: 75%; /* Medium */
+}
+
+.bier-item-6 {
+    background-color: var(--sandy-brown);
+    width: 90%; /* Longest */
+}
+.spacer1{
+    height: 6rem;
+}
+
+.spacer2 {
+    height: 20rem;
+}

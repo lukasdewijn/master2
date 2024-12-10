@@ -1,0 +1,51 @@
+.personas-container {
+    padding: 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.personas-subtitle {
+    font-size: 20px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: var(--oxford-blue);
+}
+
+.personas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 2rem 3rem; /* Spacing between rows and columns */
+    width: 100%;
+    justify-items: start; /* Align items to the start horizontally */
+}
+
+.persona-item {
+    display: flex;
+    align-items: center;
+}
+
+.persona-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+}
+
+.persona-info {
+    text-align: left;
+}
+
+.persona-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--oxford-blue);
+}
+
+.persona-description {
+    font-size: 16px;
+    margin: 0.2rem 0 0 0;
+    color: var(--oxford-blue);
+}
