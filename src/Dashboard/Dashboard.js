@@ -12,17 +12,7 @@ const Dashboard = () => {
     return (
         <Layout onSelectionChange={handleSelectionChange}>
             <div>
-                <h1>
-                    Welcome to {selectedCategory ? selectedCategory.menuId : 'the Dashboard'}
-                </h1>
-                {selectedCategory?.subItemId && (
-                    <p>
-                        Currently viewing: {selectedCategory.subItemId.replace(/-/g, ' ')}
-                    </p>
-                )}
-                {!selectedCategory && (
-                    <p>Select a category from the sidebar to get started!</p>
-                )}
+
             </div>
         </Layout>
     );
