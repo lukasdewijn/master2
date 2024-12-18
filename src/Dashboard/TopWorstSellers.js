@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TopWorstSellers.css';
+import Optionbar from "./Optionbar";
 
 const TopWorstSellers = () => {
     const segments = [
@@ -32,6 +33,13 @@ const TopWorstSellers = () => {
         { name: 'Sidecar', count: 72 },
     ];
 
+    const filterOptions = [
+        { id: 'rum', label: 'Rum-based', checked: false },
+        { id: 'whisky', label: 'Whisky-based', checked: false },
+        { id: 'alcoholFree', label: 'Alcohol-free', checked: false },
+        { id: 'lactoseFree', label: 'Lactose-free', checked: false },
+    ];
+
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('top'); // "top" or "worst"
 
@@ -51,61 +59,65 @@ const TopWorstSellers = () => {
 
     return (
         <div className="top-worst-container">
-            {/* Segment Display */}
-            <div className="segment-section">
-                <h2 className="section-title">Top & Worst</h2>
-                <div className="segment-bars">
-                    {segments.map((segment, index) => (
-                        <div key={index} className="segment-bar">
-                            <div className="bar-value">{segment.value}</div>
-                            <button className="segment-button">{segment.name}</button>
-                        </div>
-                    ))}
-                </div>
-            </div>
 
-            {/* Items List */}
-            <div className="items-section">
-                <div className="list-header">
-                    <div className="header-title">
-                        <p>Top & Worst</p>
-                        <h2 className="section-title">Cocktail-items</h2>
+            <div className="centre-content">
+                {/* Segment Display */}
+                <div className="segment-section">
+                    <h2 className="section-title">Top & Worst</h2>
+                    <div className="segment-bars">
+                        {segments.map((segment, index) => (
+                            <div key={index} className="segment-bar">
+                                <div className="bar-value">{segment.value}</div>
+                                <button className="segment-button">{segment.name}</button>
+                            </div>
+                        ))}
                     </div>
-                    <div className="section-order">
+                </div>
+
+                {/* Items List */}
+                <div className="items-section">
+                    <div className="list-header">
+                        <div className="header-title">
+                            <p>Top & Worst</p>
+                            <h2 className="section-title">Cocktail-items</h2>
+                        </div>
+                        <div className="section-order">
                         <span
                             className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
                             onClick={() => setSortOrder('top')}
                         >
                             Top sellers ↑
                         </span>
-                        <span
-                            className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
-                            onClick={() => setSortOrder('worst')}
-                        >
+                            <span
+                                className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
+                                onClick={() => setSortOrder('worst')}
+                            >
                             Worst sellers ↓
                         </span>
+                        </div>
+                        {/* Search Bar */}
+                        <div className="search-bar">
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    {/* Search Bar */}
-                    <div className="search-bar">
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <ul className="items-list">
-                    {filteredItems.map((item, index) => (
-                        <li key={index} className="item">
+                    <ul className="items-list">
+                        {filteredItems.map((item, index) => (
+                            <li key={index} className="item">
                             <span>
                                 {index + 1}. {item.name}
                             </span>
-                            <span className="item-count">{item.count} sold</span>
-                        </li>
-                    ))}
-                </ul>
+                                <span className="item-count">{item.count} sold</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
+            <Optionbar title="Segments" options={filterOptions} />
         </div>
     );
 };

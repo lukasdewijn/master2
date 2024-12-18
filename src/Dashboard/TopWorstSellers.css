@@ -1,12 +1,20 @@
-.top-worst-container {
+.top-worst-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.centre-content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    height: 100%;
+    width: 100%;
+    margin-right: 2rem;
+
 }
 
 .segment-section, .items-section {
-    background-color: #f9f9f9;
+    background-color: var(--ivory);
     border-radius: 2rem;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
@@ -38,7 +46,7 @@
     padding: 0.5rem 1rem;
     border: none;
     background-color: var(--sandy-brown);
-    color: white;
+    color: var(--ivory);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -55,7 +63,7 @@
     height: calc(100vh - 6rem); /* Adjust the height dynamically */
     overflow-y: auto; /* Enable vertical scrolling */
     padding-right: 1rem; /* Space for the scrollbar */
-    background-color: #f9f9f9; /* Background color */
+    background-color: var(--ivory); /* Background color */
 }
 
 /* Custom Scrollbar Styling */
@@ -138,7 +146,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--ivory);
     margin-bottom: 0.5rem;
     margin-right: 1rem;
     padding: 2rem 1rem 2rem 2rem;
