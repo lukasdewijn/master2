@@ -32,6 +32,7 @@ import StijgersDrank from "./Wrapped/StijgersDrank";
 import StijgersEten from "./Wrapped/StijgersEten";
 import HotForYou from "./Wrapped/HotForYou";
 import HotForNextSeason from "./Wrapped/HotForNextSeason";
+import LandingPage from "./Landing/LandinginPage";
 
 // Import OnboardingProvider for context
 import { OnboardingProvider } from './Onboarding/OnboardingContext';
@@ -102,6 +103,7 @@ function App() {
                     <Route path="/belangrijker2" element={<Belangrijker2 />} />
                     <Route path="/belangrijker3" element={<Belangrijker3 />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/welcome" element={<LandingPage />} />
 
                     {/* Wrapped Routes */}
                     {wrappedRoutes.map((route, index) => (
