@@ -18,6 +18,11 @@ body {
     padding: 3rem;
     background-color: #F8F8F5;
     border-radius: 0 3rem 3rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 60%;
 }
 
 .logo {
@@ -70,9 +75,13 @@ h2 {
 }
 
 .login-title {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #FF7F32;
     text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bolder;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .login-section, .register-section {
@@ -92,30 +101,37 @@ h3 span {
     color: #D3D3D3;
 }
 
+/* Input fields styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%; /* Ensure inputs and labels align properly */
+    margin-bottom: 1.5rem; /* Adds spacing between each input group */
+}
+
 input {
-    width: 100%;
+    width: 100%; /* Make inputs fill container */
     padding: 0.8rem;
-    margin: 0.5rem 0;
     border: none;
     border-radius: 2rem;
     background: #F8D1AD;
 }
 
 .login-btn, .register-btn {
-    width: 100%;
+    width: 70%;
     padding: 0.8rem;
-    margin-top: 1rem;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
-}
-
-.login-btn {
+    font-size: xx-large;
     background-color: #FF7F32;
     color: white;
     border-radius: 2rem;
-    width: 90%;
+    margin-top: 2rem;
+}
+
+.login-btn {
+margin-bottom: 5rem;
 }
 
 .register-btn {
@@ -126,4 +142,16 @@ input {
 
 .login-btn:hover, .register-btn:hover {
     opacity: 0.9;
+}
+
+label {
+    display: block; /* Zorgt ervoor dat het label boven het inputveld blijft */
+    text-align: left; /* Links uitlijnen */
+    width: 90%; /* Zorgt ervoor dat het label even breed is als de inputvelden */
+    font-size: 1rem;
+    font-weight: lighter;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+    margin-left: 0.7rem;
+    color: var(--ivory); /* Pas aan naar wens */
 }

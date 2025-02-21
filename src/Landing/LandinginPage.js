@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import "./LandingPage.css"
+import React from 'react';
+import "./LandingPage.css";
+
 const LandingPage = () => {
     return (
         <div className="container">
@@ -21,23 +22,25 @@ const LandingPage = () => {
 
             {/* Right Section: Login */}
             <div className="login-container">
-                <h2 className="login-title">OrderBilly</h2>
+                <p className="login-title">OrderBilly</p>
 
                 <div className="login-section">
                     <h3>Login <span>your account</span></h3>
-                    <br/><br/>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="email" />
+                    <div className="input-group">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id="email" placeholder="email" />
+                    </div>
 
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" placeholder="password" />
+                    <div className="input-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" placeholder="password" />
+                    </div>
 
                     <button className="login-btn">Login</button>
                 </div>
-                <br/><br/><br/>
+
                 <div className="register-section">
                     <h3>Register <span>your business</span></h3>
-                    <br/>
                     <button className="register-btn">Get Started</button>
                 </div>
             </div>
