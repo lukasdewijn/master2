@@ -23,8 +23,9 @@ const MenuFrequency = () => {
     };
 
     return (
-        <Layout title="Hoe vaak past u uw menu aan ongeveer?" progress={50}>
+        <Layout title="Menu verandering" progress={50}>
             <div className="menu-frequency-container">
+                <h1>Hoe vaak past u uw menu aan ongeveer?</h1>
                 <div className="menu-frequency-options-container">
                     {options.map((option, index) => (
                         <button

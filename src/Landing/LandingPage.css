@@ -20,37 +20,42 @@ body {
     border-radius: 0 3rem 3rem 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
     max-width: 60%;
 }
 
 .logo {
     display: flex;
-    align-items: center;
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: bold;
     color: #FF7F32;
 }
 
 .logo img {
-    width: 30px;
+    width: 3.5rem;
     margin-right: 8px;
 }
 
+.main-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    color: var(--oxford-blue);
+    height: 100%;
+}
 h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: bold;
     margin-top: 1rem;
+    color: var(--oxford-blue);
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: #333;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-top: 2rem;
 }
 
@@ -60,7 +65,7 @@ h2 {
 }
 
 .features li {
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin: 0.5rem 0;
 }
 

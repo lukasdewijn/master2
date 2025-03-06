@@ -12,7 +12,8 @@
     flex-direction: row;
     gap: 1rem; /* Spacing between the buttons */
     width: 100%;
-    justify-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
 }
 
 .menu-frequency-option-button {
