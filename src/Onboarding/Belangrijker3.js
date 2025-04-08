@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './layoutOnboarding';
-import './Belangrijker.css'; // Create a CSS file based on Zitplaatsen.css
-import { useOnboarding } from './OnboardingContext'; // Import the context hook
+import './Belangrijker.css';
+import { useOnboarding } from './OnboardingContext';
+import axios from 'axios';
 
 const Belangrijker3 = () => {
     const navigate = useNavigate();
-    const { onboardingData, updateOnboardingData } = useOnboarding(); // Use context
-    const [selectedOption, setSelectedOption] = useState(onboardingData.belangrijker3 || null); // Initialize state with context
+    const { onboardingData, updateOnboardingData } = useOnboarding();
+    const [selectedOption, setSelectedOption] = useState(onboardingData.belangrijker3 || null);
 
     const options = [
         "<<< Veel belangrijker",
@@ -19,18 +20,31 @@ const Belangrijker3 = () => {
         "Veel belangrijker >>>"
     ];
 
-    const handleNext = () => {
-        if (selectedOption !== null) {
-            // Update context with the selected option
-            updateOnboardingData('belangrijker3', options[selectedOption]);
+    const handleNext = async () => {
+        if (selectedOption === null) {
+            alert("Gelieve een optie te selecteren.");
+            return;
+        }
 
-            // Log the updated data
-            console.log('Updated Onboarding Data:', { ...onboardingData, belangrijker3: options[selectedOption] });
+        // Update the final field in context
+        updateOnboardingData('belangrijker3', options[selectedOption]);
 
-            // Navigate to the next page
-            navigate('/next-page'); // Replace with your actual next page route
-        } else {
-            alert("Gelieve een optie te selecteren."); // Notify the user if no option is selected
+        // Now we have all fields in `onboardingData`. Let's send it to the server.
+        try {
+            console.log("Final Onboarding Data:", { ...onboardingData, belangrijker3: options[selectedOption] });
+
+            // Make a POST request to your backend
+            const response = await axios.post('/api/complete-onboarding', {
+                ...onboardingData,
+                belangrijker3: options[selectedOption]
+            });
+
+            // If successful, you can navigate to a success page or do something else
+            console.log('Data saved:', response.data);
+            navigate('/onboarding-complete'); // Or any other success route
+        } catch (error) {
+            console.error('Error saving data:', error);
+            alert('Er is een fout opgetreden bij het opslaan van de data.');
         }
     };
 

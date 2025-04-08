@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import Layout from './layoutOnboarding.js';
 import { useOnboarding } from './OnboardingContext';
 import './Basisinformatie.css';
+import bcrypt from 'bcryptjs';
+import axios from 'axios';
 
 const formFields = [
     {
         label: 'Voornaam Manager',
         placeholder: 'Voornaam Manager',
-        key: 'managerFirstName',
+        key: 'manager_first_name',
     },
     {
         label: 'Naam Horecazaak',
         placeholder: 'Naam Horecazaak',
-        key: 'horecaName',
+        key: 'horeca_name',
     },
     {
         label: 'E-mail',
@@ -23,12 +25,12 @@ const formFields = [
     {
         label: 'Kies een wachtwoord',
         placeholder: 'Wachtwoord',
-        key: 'wachtwoord',
+        key: 'password',
     },
     {
         label: 'Achternaam Manager',
         placeholder: 'Achternaam Manager',
-        key: 'managerLastName',
+        key: 'manager_last_name',
     },
     {
         label: 'Address',
@@ -38,12 +40,12 @@ const formFields = [
     {
         label: 'Telefoonnummer',
         placeholder: 'Telefoonnummer',
-        key: 'phone',
+        key: 'phonenumber',
     },
     {
         label: 'Herhaal wachtwoord',
         placeholder: 'Wachtwoord',
-        key: 'wachtwoordherhaal',
+        key: 'passwordrepeat',
     },
 ];
 
@@ -51,43 +53,64 @@ const Basisinformatie = () => {
     const navigate = useNavigate();
     const { onboardingData, updateOnboardingData } = useOnboarding();
 
-    // Initialize local state from context if you want to keep previously entered data.
-    // Otherwise, start with an empty object.
-    const [formData, setFormData] = useState(() => {
-        // This pre-fills fields if user navigates back to this step
-        return {
-            managerFirstName: onboardingData.managerFirstName || '',
-            horecaName: onboardingData.horecaName || '',
-            email: onboardingData.email || '',
-            wachtwoord: onboardingData.wachtwoord || '',
-            managerLastName: onboardingData.managerLastName || '',
-            address: onboardingData.address || '',
-            phone: onboardingData.phone || '',
-            wachtwoordherhaal: onboardingData.wachtwoordherhaal || '',
-        };
-    });
+    // Keep local state so we only update the context on "Volgende"
+    const [formData, setFormData] = useState(() => ({
+        manager_first_name: onboardingData.manager_first_name || '',
+        manager_last_name: onboardingData.manager_last_name || '',
+        horeca_name: onboardingData.horeca_name || '',
+        email: onboardingData.email || '',
+        password: onboardingData.password || '',
+        address: onboardingData.address || '',
+        phonenumber: onboardingData.phonenumber || '',
+        passwordrepeat: onboardingData.passwordrepeat || '',
+    }));
 
-    // Update local state on each keystroke
+    // Update local form state on keystroke
     const handleChange = (key, value) => {
-        setFormData((prev) => ({
+        setFormData(prev => ({
             ...prev,
             [key]: value,
         }));
     };
 
-    // Only on "Volgende" do we store everything into the context
-    const handleNext = () => {
+    // Validate & hash password, then send data to server on "Volgende"
+    const handleNext = async () => {
         console.clear();
-        console.log(
-            '%cOnboarding Data Summary:',
-            'color: green; font-size: 16px; font-weight: bold;'
-        );
+        console.log('%cOnboarding Data (before hashing):', 'color: green; font-size: 16px; font-weight: bold;');
         console.table(formData);
 
-        // Update the context with all the local data
-        updateOnboardingData(null, formData);
+        // 1. Check if both password fields match
+        if (formData.password !== formData.passwordrepeat) {
+            alert('Wachtwoorden matchen niet!');
+            return;
+        }
 
-        // Then navigate to the next step
+        // 2. Hash the password (client-side example)
+        const hashedPassword = bcrypt.hashSync(formData.password, 10);
+
+        // 3. Create a final object to store in the context and send to server
+        const finalData = {
+            ...formData,
+            password: hashedPassword,    // replace with hashed password
+        };
+        // Optionally remove the repeated password field
+        delete finalData.passwordrepeat;
+
+        console.log('%cOnboarding Data (after hashing):', 'color: blue; font-size: 16px; font-weight: bold;');
+        console.table(finalData);
+
+        // 4. Send the final data to the server via Axios
+        try {
+            const response = await axios.post('http://localhost:3007/api/complete-onboarding', finalData);
+            console.log('Server response:', response.data);
+        } catch (error) {
+            console.error('Error sending data to server:', error);
+            alert('Error sending data to server. Please try again later.');
+            return; // stop if there's an error
+        }
+
+        // 5. Update the context and navigate to the next step
+        updateOnboardingData(null, finalData);
         navigate('/typehoreca');
     };
 
