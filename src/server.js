@@ -3,10 +3,25 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Enable CORS to allow credentials from your client origin
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}));
+
+// Set up session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,  // corrected spelling
+    cookie: { secure: false }  // In production, use secure cookies with HTTPS
+}));
 
 // Create a connection to your local MySQL server
 const db = mysql.createConnection({
@@ -26,12 +41,12 @@ db.connect((err) => {
     console.log('Connected to MySQL database!');
 });
 
-// Define the endpoint as /api/complete-onboarding
+// Endpoint for complete onboarding (register new business)
 app.post('/api/complete-onboarding', (req, res) => {
     const {
         manager_first_name,
         manager_last_name,
-        horeca_name, // will be mapped to business_name
+        horeca_name, // inserted as horeca_name
         address,
         phonenumber,
         email,
@@ -46,7 +61,7 @@ app.post('/api/complete-onboarding', (req, res) => {
     const params = [
         manager_first_name,
         manager_last_name,
-        horeca_name, // mapping horeca_name to business_name
+        horeca_name,
         address,
         phonenumber,
         email,
@@ -62,46 +77,49 @@ app.post('/api/complete-onboarding', (req, res) => {
     });
 });
 
-// (Optional) Define GET endpoint as well if needed
-app.get('/api/complete-onboarding', (req, res) => {
-    const sql = 'SELECT * FROM business_info';
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.error('Error fetching data:', err);
-            return res.status(500).json({ error: 'Database error' });
-        }
-        res.json(rows);
-    });
-});
-
-const bcrypt = require('bcryptjs'); // If you plan to compare hashed passwords
-
-// Add this endpoint on your server
+// Endpoint for login
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
 
-    // Query to find the user by email in your business_info table
+    // Find user by email
     const sql = 'SELECT * FROM business_info WHERE email = ?';
     db.query(sql, [email], (err, results) => {
         if (err) {
-            console.error('Error querying database:', err);
+            console.error('Database error:', err);
             return res.status(500).json({ error: 'Database error' });
         }
         if (results.length === 0) {
             // User not found
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
-
         const user = results[0];
-        // Compare the provided password with the hashed password stored in the database
+        // Compare hashed passwords
         if (bcrypt.compareSync(password, user.password)) {
-            // If matched, return success (you could also return user data or a token)
-            return res.json({ success: true, user });
+            // Save user details in session
+            req.session.user = {
+                id: user.id,
+                email: user.email,
+                manager_first_name: user.manager_first_name,
+                manager_last_name: user.manager_last_name,
+            };
+            return res.json({ success: true, user: req.session.user });
         } else {
-            // Password did not match
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
     });
+});
+
+// Middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.user) {
+        return next();
+    }
+    res.status(401).json({ error: 'Not authenticated' });
+}
+
+// Protected route to get logged-in user info
+app.get('/api/user', isAuthenticated, (req, res) => {
+    res.json({ user: req.session.user });
 });
 
 app.listen(3007, () => {
