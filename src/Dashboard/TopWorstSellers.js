@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './TopWorstSellers.css';
 import Optionbar from "./Optionbar";
+import { segmentOptions, locationOptions, seasonOptions, highlightOptions } from './Icons/optionbarOptions';
+
 
 const TopWorstSellers = () => {
     const segments = [
@@ -31,13 +33,6 @@ const TopWorstSellers = () => {
         { name: 'Cuba libre', count: 60 },
         { name: 'Tom Collins', count: 55 },
         { name: 'Sidecar', count: 72 },
-    ];
-
-    const filterOptions = [
-        { id: 'rum', label: 'Rum-based', checked: false },
-        { id: 'whisky', label: 'Whisky-based', checked: false },
-        { id: 'alcoholFree', label: 'Alcohol-free', checked: false },
-        { id: 'lactoseFree', label: 'Lactose-free', checked: false },
     ];
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -117,7 +112,7 @@ const TopWorstSellers = () => {
                     </ul>
                 </div>
             </div>
-            <Optionbar title="Segments" options={filterOptions} />
+            <Optionbar title="Segments" />
         </div>
     );
 };
