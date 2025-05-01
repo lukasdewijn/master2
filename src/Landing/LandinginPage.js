@@ -62,7 +62,7 @@ const LandingPage = () => {
                         <p>Discover new products, refine your menu, and optimize sales with data-driven insights.</p>
                     </div>
                     <div className="text-bottom">
-                        <h2>Why choose Billy?</h2>
+                        <h2 className="why-billy">Why choose Billy?</h2>
                         <br />
                         <ul className="features">
                             <li>✔ Get fast sales insights with our season wrapped</li>
