@@ -13,7 +13,7 @@
 
 }
 
-.reprice-section, .items-section {
+.reprice-section, .reprice-items-section {
     background-color: var(--ivory);
     border-radius: 2rem;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -22,19 +22,18 @@
 .reprice-section{
     background-color: var(--ivory);
     border-radius: 2rem;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
 }
 
 .reprice-title{
     color: var(--oxford-blue);
     font-family: 'Quicksand', sans-serif;
     font-size: 1.8rem;
-    margin: 0 0 1rem;
+    margin: 0 0 4rem;
 }
 
 .section-title {
@@ -72,13 +71,13 @@
     background-color: var(--sandy-brown);
 }
 
-.items-section {
+.reprice-items-section {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     height: calc(100vh - 6rem); /* Adjust the height dynamically */
     overflow-y: auto; /* Enable vertical scrolling */
-    padding-right: 1rem; /* Space for the scrollbar */
+    padding: 1.5rem; /* Space for the scrollbar */
     background-color: var(--ivory); /* Background color */
 }
 
@@ -104,9 +103,8 @@
 }
 
 
-.list-header {
+.r-list-header {
     display: flex;
-    justify-content: start;
     align-items: center;
     margin-bottom: 1rem;
     color: var(--oxford-blue);
@@ -119,32 +117,26 @@
     margin: 0;
 }
 
-.header-title h2 {
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-}
-
-.section-order {
+.r-section-order {
     display: flex;
     gap: 2rem;
     font-size: 1.2rem;
     color: var(--oxford-blue);
     cursor: pointer;
     margin-left: auto;
-    margin-right: auto;
-    font-weight: normal;
+    font-weight: lighter;
 }
 
-.section-order .order-button {
+.r-section-order .order-button {
     transition: color 0.05s ease, font-weight 0.05s ease;
 }
 
-.section-order .order-button:hover {
+.r-section-order .order-button:hover {
     text-decoration: underline;
     color: var(--sandy-brown);
 }
 
-.section-order .order-button.active {
+.r-section-order .order-button.active {
     color: var(--sandy-brown);
     font-weight: bolder;
 }
@@ -181,8 +173,8 @@
     margin-right: 1rem;
 }
 
-.search-bar {
-    margin-left: auto;
+.r-search-bar {
+    margin-left: 2rem;
     margin-right: 1.8rem;
     display: flex;
     align-items: center;
@@ -193,7 +185,7 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar input {
+.r-search-bar input {
     border: none;
     background: transparent;
     outline: none;
@@ -202,7 +194,7 @@
     width: 100%;
 }
 
-.search-bar input::placeholder {
+.r-search-bar input::placeholder {
     color: #fa954b;
     opacity: 0.7;
 }
@@ -210,12 +202,11 @@
 .price-bar-wrapper {
     position: relative;
     width: 80%;        /* fixed total width */
-    max-width: 600px;  /* maximum width */
 }
 
 .price-bar {
     display: flex;
-    height: 1.5rem;
+    height: 1rem;
     border-radius: 0.75rem;
     overflow: hidden;
 }
@@ -225,19 +216,98 @@
 }
 
 /* Arrow indicator styling */
-.price-indicator {
+.price-indicator.top {
     position: absolute;
     top: -8px;
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--oxford-blue);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid var(--oxford-blue);
+}
+.price-indicator.top {
+    top: -1.5rem;
+    /* flip: use border-top instead of border-bottom */
+    border-bottom: none;
+    border-top: 25px solid var(--oxford-blue);
 }
 
+.price-indicator.bottom {
+    position: absolute;
+    top: 1rem;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 25px solid var(--oxford-blue);
+}
+
+/* Price labels above/below indicators */
+.price-label {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--oxford-blue);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.price-label.top {
+    top: -2.9rem; /* above the top arrow */
+    margin-left: 3rem;
+}
+
+.price-label.bottom {
+    bottom: -3rem; /* below the bottom arrow */
+    margin-left: 4rem;
+}
+
+/* Threshold labels at segment boundaries */
+.price-threshold-label {
+    position: absolute;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+    transform: translateX(-50%);
+    top: -20px;
+    pointer-events: none;
+    margin-left: 8px;
+}
 
 .segment--low { background: #d32f2f; }
-.segment--below-optimal { background: #f9f599; }
+.segment--below-optimal { background: #f9f599;}
 .segment--optimal { background: #388e3c; }
 .segment--above-optimal { background: #f9f599; }
 .segment--high { background: #d32f2f; }
+
+.reprice-indicators{
+    display: flex;
+    margin-top: 4rem;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.pacman-icon{width: 80px; margin-bottom: 10px}
+.pricesens-icon{width: 80px;}
+.euro-icon{width: 60px; margin-bottom: 12px; margin-top: 5px}
+
+.cannibalism, .pricesens, .yourprice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bolder;
+}
+
+.cannibalism-indicator, .pricesens-indicator, .yourprice-indicator{
+    display: inline-block;             /* shrink‐to‐fit its contents */
+    padding: 1rem 2rem;              /* space around the text */
+    margin-top: 1rem;
+    border: 2px solid var(--oxford-blue);
+    border-radius: 0.75rem;            /* round the corners */
+    background-color: var(--ivory);    /* optional fill */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}

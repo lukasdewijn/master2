@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import './ToReprice.css';
 import Optionbar from "./Optionbar";
 import { segmentOptions, locationOptions, seasonOptions, highlightOptions } from './Icons/optionbarOptions';
-
+import pacman from './Icons/pacman.svg'
+import pricesens from './Icons/pricesensitivity.svg'
+import euro from './Icons/euro.svg'
 
 const ToReprice = () => {
 
@@ -58,10 +60,22 @@ const ToReprice = () => {
         'segment--high'
     ];
     // Example current price
-    const currentPrice = 6.2;
+    const currentPrice = 6.8;
+    const optimalPrice = 5.6;
     const minPrice = priceRanges[0];
     const maxPrice = priceRanges[priceRanges.length - 1];
-    const positionPercent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
+    const thresholds = priceRanges;
+    const positionPercentCurrent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
+    const positionPercentOptimal = ((optimalPrice - minPrice) / (maxPrice - minPrice)) * 100;
+    // helper to compute percent
+    const toPct = p => ((p - minPrice) / (maxPrice - minPrice)) * 100;
+
+    // dynamic levels only
+    const indicatorLevels = {
+        cannibalism: 'High',
+        priceSensitivity: 'Medium',
+        yourPrice: 'Low'
+    };
 
     return (
         <div className="to-reprice-container">
@@ -70,15 +84,27 @@ const ToReprice = () => {
                 {/* Segment Display */}
                 <div className="reprice-section">
                     <h2 className="reprice-title">Price Elasticity</h2>
-
                     <div className="price-bar-wrapper">
-                        {/* Arrow indicator */}
+                        {/* show a label at every boundary */}
+                        {thresholds.map((t, i) => (
+                            <div
+                                key={i}
+                                className={`price-threshold-label ${i === 0 || i === thresholds.length-1 ? 'end' : ''}`}
+                                style={{ left: `calc(${toPct(t)}% - 12px)` }}
+                            >
+                                €{t}
+                            </div>
+                        ))}
+                        {/* Optimal price indicator */}
                         <div
-                            className="price-indicator"
-                            style={{left: `calc(${positionPercent}% - 8px)`}}
+                            className="price-indicator top"
+                            style={{left: `calc(${positionPercentOptimal}% - 8px)`}}
                         />
+                        <div className="price-label top" style={{left: `calc(${positionPercentOptimal}% - 8px)`}}>
+                            €{optimalPrice} best price
+                        </div>
 
-                        {/* Segmented bar */}
+                        {/* Price bar segments */}
                         <div className="price-bar">
                             {segmentWeights.map((weight, idx) => (
                                 <div
@@ -88,32 +114,53 @@ const ToReprice = () => {
                                 />
                             ))}
                         </div>
+
+                        {/* Current price indicator */}
+                        <div
+                            className="price-indicator bottom"
+                            style={{left: `calc(${positionPercentCurrent}% - 8px)`}}
+                        />
+                        <div className="price-label bottom" style={{left: `calc(${positionPercentCurrent}% - 8px)`}}>
+                            €{currentPrice} current price
+                        </div>
+                    </div>
+                    <div className="reprice-indicators">
+                        <div className="cannibalism">
+                            <img src={pacman} alt={`${pacman.label} icon`} className="pacman-icon"/>
+                            <div className="cannibalism-label"> Cannibalism</div>
+                            <div className="cannibalism-indicator"> High </div>
+                        </div>
+                        <div className="pricesens">
+                            <img src={pricesens} alt={`${pricesens.label} icon`} className="pricesens-icon"/>
+                            <div className="pricesens-label"> Pricesensibilaty</div>
+                            <div className="pricesens-indicator"> High </div>
+                        </div>
+                        <div className="yourprice">
+                            <img src={euro} alt={`${euro.label} icon`} className="euro-icon"/>
+                            <div className="yourprice-label"> Your Price</div>
+                            <div className="yourprice-indicator"> High </div>
+                        </div>
+
+
                     </div>
                 </div>
 
                 {/* Items List */}
-                <div className="items-section">
-                    <div className="list-header">
-                        <div className="header-title">
-                            <p>Top & Worst</p>
-                            <h2 className="section-title">Cocktail-items</h2>
-                        </div>
-                        <div className="section-order">
-                        <span
-                            className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
-                            onClick={() => setSortOrder('top')}
-                        >
-                            Top sellers ↑
-                        </span>
-                            <span
-                                className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
-                                onClick={() => setSortOrder('worst')}
-                            >
-                            Worst sellers ↓
-                        </span>
+                <div className="reprice-items-section">
+                    <div className="r-list-header">
+                        <h2 className="header-title"> To Reprice Items </h2>
+                        <div className="r-section-order">
+                            <div className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
+                                 onClick={() => setSortOrder('top')}>
+                                Te Hoog ↑
+                            </div>
+                            <div className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
+                                onClick={() => setSortOrder('worst')}>
+                                Te Laag ↓
+                            </div>
                         </div>
                         {/* Search Bar */}
-                        <div className="search-bar">
+                        <div className="r-search-bar">
                             <input
                                 type="text"
                                 placeholder="Search"
