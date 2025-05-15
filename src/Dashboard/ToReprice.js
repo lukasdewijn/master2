@@ -9,30 +9,192 @@ import euro from './Icons/euro.svg'
 const ToReprice = () => {
 
     const allItems = [
-        { name: 'Bacardi cola', count: 120 },
-        { name: 'Gin tonic', count: 95 },
-        { name: 'Mojito', count: 85 },
-        { name: 'Whiskey sour', count: 77 },
-        { name: 'Espresso martini', count: 63 },
-        { name: 'Pina colada', count: 110 },
-        { name: 'Tequila sunrise', count: 52 },
-        { name: 'Caipirinha', count: 88 },
-        { name: 'Cosmopolitan', count: 69 },
-        { name: 'Bloody mary', count: 45 },
-        { name: 'Mai tai', count: 58 },
-        { name: 'Dark and stormy', count: 76 },
-        { name: 'Screwdriver', count: 81 },
-        { name: 'Blue lagoon', count: 49 },
-        { name: 'Old fashioned', count: 130 },
-        { name: 'Manhattan', count: 67 },
-        { name: 'Negroni', count: 92 },
-        { name: 'Cuba libre', count: 60 },
-        { name: 'Tom Collins', count: 55 },
-        { name: 'Sidecar', count: 72 },
+        {
+            name: 'Bacardi cola',
+            currentPrice: 4.20,
+            optimalPrice: 4.50,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'high',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Gin tonic',
+            currentPrice: 5.80,
+            optimalPrice: 5.10,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'high',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Mojito',
+            currentPrice: 6.30,
+            optimalPrice: 6.00,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Pina colada',
+            currentPrice: 5.50,
+            optimalPrice: 5.10,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Tequila sunrise',
+            currentPrice: 6.00,
+            optimalPrice: 5.80,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'high',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Caipirinha',
+            currentPrice: 6.40,
+            optimalPrice: 6.00,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Cosmopolitan',
+            currentPrice: 6.90,
+            optimalPrice: 6.50,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Bloody Mary',
+            currentPrice: 5.20,
+            optimalPrice: 5.10,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'high',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Mai Tai',
+            currentPrice: 5.80,
+            optimalPrice: 5.50,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Dark and Stormy',
+            currentPrice: 6.20,
+            optimalPrice: 6.00,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'high',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Screwdriver',
+            currentPrice: 4.80,
+            optimalPrice: 5.00,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'high',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'laag'
+        },
+        {
+            name: 'Blue Lagoon',
+            currentPrice: 5.00,
+            optimalPrice: 5.20,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'laag'
+        },
+        {
+            name: 'Old Fashioned',
+            currentPrice: 7.00,
+            optimalPrice: 6.50,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Manhattan',
+            currentPrice: 7.50,
+            optimalPrice: 7.00,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'high',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Negroni',
+            currentPrice: 6.80,
+            optimalPrice: 6.50,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Cuba Libre',
+            currentPrice: 5.90,
+            optimalPrice: 5.60,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'high',
+            priceSensitivity: 'low',
+            jouwPrijsIs: 'hoog'
+        },
+        {
+            name: 'Tom Collins',
+            currentPrice: 5.60,
+            optimalPrice: 5.30,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'low',
+            priceSensitivity: 'medium',
+            jouwPrijsIs: 'goed'
+        },
+        {
+            name: 'Sidecar',
+            currentPrice: 7.20,
+            optimalPrice: 6.80,
+            minPrice: 4.00,
+            maxPrice: 8.00,
+            cannibalisationRisk: 'medium',
+            priceSensitivity: 'high',
+            jouwPrijsIs: 'hoog'
+        }
     ];
 
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('top'); // "top" or "worst"
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
 
     // Sort items based on sortOrder
     const sortedItems = [...allItems].sort((a, b) => {
@@ -51,7 +213,7 @@ const ToReprice = () => {
     // Define price breakpoints
     const priceRanges = [4, 4.5, 5.1, 6, 6.5, 8];
     // Compute relative weights based on range widths
-    const segmentWeights = priceRanges.slice(1).map((end, idx) => end - priceRanges[idx]);
+
     const segmentClasses = [
         'segment--low',
         'segment--below-optimal',
@@ -59,12 +221,14 @@ const ToReprice = () => {
         'segment--above-optimal',
         'segment--high'
     ];
+    const selectedItem = filteredItems[selectedIndex] || {};
     // Example current price
-    const currentPrice = 6.8;
-    const optimalPrice = 5.6;
-    const minPrice = priceRanges[0];
-    const maxPrice = priceRanges[priceRanges.length - 1];
-    const thresholds = priceRanges;
+    const currentPrice = selectedItem.currentPrice?.toFixed(2);
+    const optimalPrice = selectedItem.optimalPrice?.toFixed(2);
+    const minPrice = optimalPrice*0.35;
+    const maxPrice = optimalPrice*2;
+    const thresholds = [minPrice.toFixed(2), (optimalPrice*0.5).toFixed(2), (optimalPrice*0.7).toFixed(2),(optimalPrice*1.25).toFixed(2), (optimalPrice*1.5).toFixed(2), optimalPrice*2];
+    const segmentWeights = thresholds.slice(1).map((end, idx) => end - thresholds[idx]);
     const positionPercentCurrent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
     const positionPercentOptimal = ((optimalPrice - minPrice) / (maxPrice - minPrice)) * 100;
     // helper to compute percent
@@ -76,6 +240,8 @@ const ToReprice = () => {
         priceSensitivity: 'Medium',
         yourPrice: 'Low'
     };
+
+
 
     return (
         <div className="to-reprice-container">
@@ -106,11 +272,11 @@ const ToReprice = () => {
 
                         {/* Price bar segments */}
                         <div className="price-bar">
-                            {segmentWeights.map((weight, idx) => (
+                            {segmentWeights.map((w, idx) => (
                                 <div
                                     key={idx}
                                     className={`segment ${segmentClasses[idx]}`}
-                                    style={{flex: weight}}
+                                    style={{flex: w}}
                                 />
                             ))}
                         </div>
@@ -128,17 +294,17 @@ const ToReprice = () => {
                         <div className="cannibalism">
                             <img src={pacman} alt={`${pacman.label} icon`} className="pacman-icon"/>
                             <div className="cannibalism-label"> Cannibalism</div>
-                            <div className="cannibalism-indicator"> High </div>
+                            <div className="cannibalism-indicator"> {selectedItem.cannibalisationRisk} </div>
                         </div>
                         <div className="pricesens">
                             <img src={pricesens} alt={`${pricesens.label} icon`} className="pricesens-icon"/>
-                            <div className="pricesens-label"> Pricesensibilaty</div>
-                            <div className="pricesens-indicator"> High </div>
+                            <div className="pricesens-label"> Price Sensitivity</div>
+                            <div className="pricesens-indicator"> {selectedItem.priceSensitivity} </div>
                         </div>
                         <div className="yourprice">
                             <img src={euro} alt={`${euro.label} icon`} className="euro-icon"/>
                             <div className="yourprice-label"> Your Price</div>
-                            <div className="yourprice-indicator"> High </div>
+                            <div className="yourprice-indicator"> {selectedItem.jouwPrijsIs} </div>
                         </div>
 
 
@@ -148,34 +314,53 @@ const ToReprice = () => {
                 {/* Items List */}
                 <div className="reprice-items-section">
                     <div className="r-list-header">
-                        <h2 className="header-title"> To Reprice Items </h2>
+                        <h2 className="header-title">To Reprice Items</h2>
                         <div className="r-section-order">
-                            <div className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
-                                 onClick={() => setSortOrder('top')}>
-                                Te Hoog ↑
-                            </div>
-                            <div className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
-                                onClick={() => setSortOrder('worst')}>
-                                Te Laag ↓
-                            </div>
+                            {[
+                                { label: 'Te Hoog ↑', key: 'top' },
+                                { label: 'Te Laag ↓', key: 'worst' }
+                            ].map(({ label, key }) => (
+                                <div
+                                    key={key}
+                                    className={`order-button ${sortOrder === key ? 'active' : ''}`}
+                                    onClick={() => setSortOrder(key)}
+                                >
+                                    {label}
+                                </div>
+                            ))}
                         </div>
-                        {/* Search Bar */}
                         <div className="r-search-bar">
                             <input
                                 type="text"
                                 placeholder="Search"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={e => setSearchTerm(e.target.value)}
                             />
                         </div>
                     </div>
                     <ul className="items-list">
-                        {filteredItems.map((item, index) => (
-                            <li key={index} className="item">
-                            <span>
-                                {index + 1}. {item.name}
-                            </span>
-                                <span className="item-count">{item.count} sold</span>
+                        {filteredItems.map((item, idx) => (
+                            <li
+                                key={item.name}
+                                className={`item ${selectedIndex === idx ? 'selected' : ''}`}
+                                onClick={() => setSelectedIndex(idx)}
+                            >
+                                <span>{idx + 1}. {item.name}</span>
+                                <div className="verandering-prijs">
+                                    <div className="lijst-jouw-prijs">
+                                        <div>€ {item.currentPrice}</div>
+                                        <div>jouw prijs</div>
+                                    </div>
+                                    <div className="lijst-pijl">&#8594;</div>
+                                    <div className="lijst-nieuwe-prijs">
+                                        <div>€ {item.optimalPrice}</div>
+                                        <div>betere prijs</div>
+                                    </div>
+                                </div>
+                                <div className="lijst-indicator">
+                                    <div> Jouw prijs is </div>
+                                    <div> {item.jouwPrijsIs}</div>
+                                </div>
                             </li>
                         ))}
                     </ul>

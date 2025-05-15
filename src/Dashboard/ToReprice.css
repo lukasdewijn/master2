@@ -29,6 +29,10 @@
     box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
 }
 
+.reprice-items-section .item.selected {
+    background-color: #FA954B30;
+}
+
 .reprice-title{
     color: var(--oxford-blue);
     font-family: 'Quicksand', sans-serif;
@@ -301,7 +305,8 @@
 }
 
 .cannibalism-indicator, .pricesens-indicator, .yourprice-indicator{
-    display: inline-block;             /* shrink‐to‐fit its contents */
+    display: flex;
+    justify-content: center;
     padding: 1rem 2rem;              /* space around the text */
     margin-top: 1rem;
     border: 2px solid var(--oxford-blue);
@@ -310,4 +315,101 @@
     font-family: 'Quicksand', sans-serif;
     font-size: 1rem;
     color: var(--oxford-blue);
+    width: 6rem
+}
+
+
+/* make the list itself full width & remove bullets */
+.reprice-items-section .items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* each item wrapper */
+.reprice-items-section .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ivory);
+    border: 2px solid var(--sandy-brown);
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* highlight selected item */
+.reprice-items-section .item.selected {
+    background: #fde3d6; /* light peach */
+}
+
+/* drink name on left */
+.reprice-items-section .item > span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--oxford-blue);
+    flex: 1;
+}
+
+.verandering-prijs {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    white-space: nowrap;
+}
+
+.lijst-jouw-prijs,
+.lijst-nieuwe-prijs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}
+.lijst-jouw-prijs div:first-child,
+.lijst-nieuwe-prijs div:first-child {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.lijst-pijl {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: var(--oxford-blue);
+}
+
+.lijst-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-left: 2rem;
+}
+
+.lijst-indicator div:first-child {
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}
+.lijst-indicator div:last-child {
+    background: var(--sandy-brown);
+    color: var(--ivory);
+    padding: 0.5rem 1.5rem;
+    border-radius: 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* responsive wrapping */
+@media (max-width: 800px) {
+    .reprice-items-section .item {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .reprice-items-section .verandering-prijs {
+        margin: 0;
+    }
+    .reprice-items-section .lijst-indicator {
+        margin-left: auto;
+    }
 }
