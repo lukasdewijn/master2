@@ -4,9 +4,9 @@ import TopWorstSellers from './TopWorstSellers';
 import ToReprice from "./ToReprice";
 import './Layout.css';
 import '../index.css';
+import WrappedDashboard from "./WrappedDashboard";
 
 // Stub components for demonstration
-const WrappedComponent = () => <div><h2>Wrapped Component</h2><p>Coming soon...</p></div>;
 const ToAddComponent = () => <div><h2>To Add Component</h2><p>Coming soon...</p></div>;
 const ToRemoveComponent = () => <div><h2>To Remove Component</h2><p>Coming soon...</p></div>;
 const ToRepriceComponent = () => <div><h2>To Reprice Component</h2><p>This is the reprice view.</p></div>;
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
             MainContent = <TopWorstSellers selectedOption={selectedOption} />;
             break;
         case 'wrapped':
-            MainContent = <WrappedComponent />;
+            MainContent = <WrappedDashboard selectedOption={selectedOption} />;
             break;
         case 'to-add':
             MainContent = <ToAddComponent />;

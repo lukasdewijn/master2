@@ -1,13 +1,17 @@
-/* Container styling */
 .hot-container {
     font-family: 'Quicksand', sans-serif;
-    background-color: var(--oxford-blue);
+    background-color: var(--ivory);
     color: var(--ivory);
+
+    /* border: <width> <style> <color> */
+    border: thick solid var(--ivory);
+    border-radius: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-height: 100vh;
+    height: 100%;
 }
+
 
 /* Title styling */
 .hot-title-container {

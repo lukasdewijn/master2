@@ -1,0 +1,15 @@
+.wrapped-dashboard{
+    height: 100%;
+    padding: 0% 30% 0% 30% ;
+    background: var(--ivory);
+    border: medium solid var(--ivory);
+    border-radius: 2rem;
+
+}
+
+.phone-emulator{
+    background: var(--oxford-blue);
+    border: medium solid var(--ivory);
+    border-radius: 2rem;
+    padding: 0.3rem;
+}
