@@ -1,15 +1,16 @@
 .hot-container {
     font-family: 'Quicksand', sans-serif;
-    background-color: var(--ivory);
+    background-color: var(--oxford-blue);
     color: var(--ivory);
 
     /* border: <width> <style> <color> */
-    border: thick solid var(--ivory);
+    border: thick solid var(--sandy-brown);
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
+    width: 50rem;
 }
 
 
@@ -18,11 +19,13 @@
     text-align: center;
     margin-bottom: 2rem;
     padding: 1rem;
+    color: var(--ivory);
 }
 
 .hot-title-container h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: var(--ivory)
 }
 
 .hot-title-container h2 {

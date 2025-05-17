@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    width: 100%;
+    width: 50rem;
     background-color: var(--oxford-blue); /* Blue background */
     color: var(--ivory);
 }
@@ -11,10 +11,13 @@ html, body {
 /* Main container */
 .top-template-container {
     padding: 2.5rem 0;
+    width: 50rem;
     background-color: var(--oxford-blue);
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 2rem;
+    border: thick solid var(--sandy-brown);
 }
 
 .section {
@@ -23,18 +26,20 @@ html, body {
 }
 
 /* Section titles */
-.section-title {
+.toptemp-title {
     font-size: 2rem;
     margin-bottom: 0.5rem;
     text-align: center;
+    color: var(--ivory);
 }
 
-.section-subtitle {
+.toptemp-subtitle {
     font-size: 1.2rem;
     margin-bottom: 2rem;
     text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
+    color: var(--ivory);
 }
 
 /* List of items */
@@ -47,7 +52,7 @@ html, body {
 
 /* Shared styling for items */
 .item-1, .item-2, .item-3, .item-4, .item-5 {
-    padding: 0.7rem;
+    padding: 0.8rem;
     border-radius: 0 12px 12px 0;
     display: flex;
     justify-content: space-between;
