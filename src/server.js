@@ -194,3 +194,74 @@ app.patch('/api/menu-items', isAuthenticated, (req, res) => {
 app.listen(3007, () => {
     console.log('Server running on http://localhost:3007');
 });
+
+// DELETE één menu-item
+app.delete('/api/menu-items/:id', isAuthenticated, (req, res) => {
+    const businessId   = req.session.user.id;
+    const menuItemId   = Number(req.params.id);
+
+    const sql = `
+    DELETE FROM menu_items
+    WHERE id_menu_item = ?
+      AND business_id  = ?
+  `;
+    db.query(sql, [menuItemId, businessId], (err, result) => {
+        if (err) {
+            console.error('Fout bij verwijderen menu_item:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Item niet gevonden of geen rechten' });
+        }
+        res.json({ success: true });
+    });
+});
+
+// 1. Haal alle bestaande products op (voor autocomplete)
+app.get('/api/products', isAuthenticated, (req, res) => {
+    const sql = `
+    SELECT id_product, name, brand, id_category, id_subcategory
+    FROM products
+    ORDER BY name
+  `;
+    db.query(sql, (err, rows) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json(rows);
+    });
+});
+
+// 2. Haal alle categories op (dropdown)
+app.get('/api/categories', isAuthenticated, (req, res) => {
+    db.query(
+        'SELECT id_category, category_name FROM categories ORDER BY category_name',
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: 'Database error' });
+            res.json(rows);
+        }
+    );
+});
+
+// 3. Haal alle subcategories op (dropdown, filter je later client-side)
+app.get('/api/subcategories', isAuthenticated, (req, res) => {
+    db.query(
+        'SELECT id_subcat, id_category, subcat_name FROM subcategories ORDER BY subcat_name',
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: 'Database error' });
+            res.json(rows);
+        }
+    );
+});
+
+// 4. Voeg een nieuw menu_item toe
+app.post('/api/menu-items', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+    const { product_id, price } = req.body;
+    const sql = `
+    INSERT INTO menu_items (business_id, product_id, price)
+    VALUES (?, ?, ?)
+  `;
+    db.query(sql, [businessId, product_id, price], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json({ success: true, insertId: result.insertId });
+    });
+});

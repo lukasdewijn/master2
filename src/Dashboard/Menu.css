@@ -148,3 +148,71 @@
 .menu-item-input[type="number"] {
     -moz-appearance: textfield;
 }
+
+/* voeg onderaan toe */
+.delete-marker {
+    background: transparent;
+    border: none;
+    color: var(--sandy-brown);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+.delete-marker:hover {
+    color: red;
+}
+.price-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+.currency-symbol {
+    margin-right: 0.25rem;
+    color: var(--oxford-blue);
+}
+
+/* Formulier in één rij */
+.add-form {
+    display: flex;
+    flex-wrap: wrap;        /* laat eventueel naar volgende regel flowsen op kleine schermen */
+    gap: 1rem;              /* ruimte tussen velden */
+    align-items: center;
+    margin-bottom: 1.5rem;  /* ruimte onder het formulier */
+}
+
+/* Gemeenschappelijke styling voor input en select binnen de form */
+.add-form input,
+.add-form select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background: var(--ivory);
+    font-size: 1rem;
+    color: var(--oxford-blue);
+    min-width: 8rem;
+}
+
+/* Iets bredere velden voor naam en dropdowns */
+.add-form input[list],
+.add-form input[type="text"] {
+    min-width: 12rem;
+}
+
+.add-form select {
+    min-width: 10rem;
+}
+
+/* Styling van de Voeg toe knop */
+.add-btn {
+    padding: 0.5rem 1rem;
+    background: var(--sandy-brown);
+    color: var(--ivory);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.add-btn:hover {
+    opacity: 0.9;
+}
