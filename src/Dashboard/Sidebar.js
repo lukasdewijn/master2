@@ -10,42 +10,42 @@ const Sidebar = ({ onSelectionChange, selectedOption }) => {
     return (
         <nav className="sidebar">
             <div className="sidebar-header">Billy</div>
-            <ul className="menu">
+            <ul className="sidebar-list">
                 <li
-                    className={`menu-item ${selectedOption === 'stats' ? 'active' : ''}`}
+                    className={`sidebar-list-item ${selectedOption === 'stats' ? 'active' : ''}`}
                     onClick={() => handleClick('stats')}
                 >
                     Stats
                 </li>
                 <li
-                    className={`menu-item ${selectedOption === 'wrapped' ? 'active' : ''}`}
+                    className={`sidebar-list-item ${selectedOption === 'wrapped' ? 'active' : ''}`}
                     onClick={() => handleClick('wrapped')}
                 >
                     Wrapped
                 </li>
                 <li
-                    className={`menu-item ${selectedOption === 'to-add' ? 'active' : ''}`}
+                    className={`sidebar-list-item ${selectedOption === 'to-add' ? 'active' : ''}`}
                     onClick={() => handleClick('to-add')}
                 >
                     To add
                 </li>
                 <li
-                    className={`menu-item ${selectedOption === 'to-remove' ? 'active' : ''}`}
+                    className={`sidebar-list-item ${selectedOption === 'to-remove' ? 'active' : ''}`}
                     onClick={() => handleClick('to-remove')}
                 >
                     To remove
                 </li>
                 <li
-                    className={`menu-item ${selectedOption === 'to-reprice' ? 'active' : ''}`}
+                    className={`sidebar-list-item ${selectedOption === 'to-reprice' ? 'active' : ''}`}
                     onClick={() => handleClick('to-reprice')}
                 >
                     To reprice
                 </li>
                 <li
-                    className={`menu-item ${selectedOption === 'to-promote' ? 'active' : ''}`}
-                    onClick={() => handleClick('to-promote')}
+                    className={`sidebar-list-item ${selectedOption === 'edit-menu' ? 'active' : ''}`}
+                    onClick={() => handleClick('edit-menu')}
                 >
-                    To promote
+                    Edit menu
                 </li>
             </ul>
             <div className="sidebar-footer">Footer Content</div>

@@ -29,24 +29,21 @@ const LandingPage = () => {
 
     // Handler to validate the login credentials
     const handleLogin = async () => {
-        // Optionally, add client-side validation here
         try {
-            // POST request to your login API endpoint. Adjust the URL to your server.
-            const response = await axios.post('http://localhost:3007/api/login', loginData);
-
-            // Check if login is successful. Assumes the endpoint returns { success: true }
-            if (response.data.success) {
-                console.log("Login successful:", response.data);
-                // Navigate to a protected page (for example, a dashboard)
+            const res = await axios.post('http://localhost:3007/api/login', loginData);
+            if (res.data.success) {
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('business_id', res.data.business_id);
                 navigate('/dashboard');
             } else {
-                alert('Invalid email or password.');
+                alert('Invalid credentials');
             }
-        } catch (error) {
-            console.error('Error logging in:', error);
-            alert('Error sending data to server. Please try again later.');
+        } catch(err) {
+            console.error(err);
+            alert('Server error');
         }
     };
+
 
     return (
         <div className="container">

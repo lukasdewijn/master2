@@ -1,28 +1,27 @@
+// src/Layout.js
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import TopWorstSellers from './TopWorstSellers';
 import ToReprice from "./ToReprice";
+import WrappedDashboard from "./WrappedDashboard";
+import Menu from "./Menu";
 import './Layout.css';
 import '../index.css';
-import WrappedDashboard from "./WrappedDashboard";
 
-// Stub components for demonstration
-const ToAddComponent = () => <div><h2>To Add Component</h2><p>Coming soon...</p></div>;
+// Stub components voor de overige opties
+const ToAddComponent    = () => <div><h2>To Add Component</h2><p>Coming soon...</p></div>;
 const ToRemoveComponent = () => <div><h2>To Remove Component</h2><p>Coming soon...</p></div>;
-const ToRepriceComponent = () => <div><h2>To Reprice Component</h2><p>This is the reprice view.</p></div>;
-const ToPromoteComponent = () => <div><h2>To Promote Component</h2><p>Coming soon...</p></div>;
 
 const Layout = ({ children }) => {
     const [selectedOption, setSelectedOption] = useState('stats');
 
-    // Determine which main component to render
     let MainContent;
     switch (selectedOption) {
         case 'stats':
-            MainContent = <TopWorstSellers selectedOption={selectedOption} />;
+            MainContent = <TopWorstSellers />;
             break;
         case 'wrapped':
-            MainContent = <WrappedDashboard selectedOption={selectedOption} />;
+            MainContent = <WrappedDashboard />;
             break;
         case 'to-add':
             MainContent = <ToAddComponent />;
@@ -31,10 +30,10 @@ const Layout = ({ children }) => {
             MainContent = <ToRemoveComponent />;
             break;
         case 'to-reprice':
-            MainContent = <ToReprice selectedOption={selectedOption}/>;
+            MainContent = <ToReprice />;
             break;
-        case 'to-promote':
-            MainContent = <ToPromoteComponent />;
+        case 'edit-menu':
+            MainContent = <Menu />;
             break;
         default:
             MainContent = <div />;
@@ -48,7 +47,6 @@ const Layout = ({ children }) => {
             />
 
             <div className="main-content">
-                {/* Render the appropriate component based on sidebar selection */}
                 {MainContent}
                 {children}
             </div>

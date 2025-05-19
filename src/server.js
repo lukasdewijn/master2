@@ -9,31 +9,29 @@ const bcrypt = require('bcryptjs');
 const app = express();
 app.use(express.json());
 
-// Enable CORS to allow credentials from your client origin
+// Enable CORS to allow credentials from je client
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     credentials: true
 }));
 
-// Set up session middleware
+// Session middleware
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
-    saveUninitialized: false,  // corrected spelling
-    cookie: { secure: false }  // In production, use secure cookies with HTTPS
+    saveUninitialized: false,
+    cookie: { secure: false } // in prod via HTTPS op true zetten
 }));
 
-// Create a connection to your local MySQL server
+// MySQL connectie
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT, // e.g., 3306
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
-
-// Connect to the database
-db.connect((err) => {
+db.connect(err => {
     if (err) {
         console.error('Failed to connect to MySQL:', err);
         process.exit(1);
@@ -41,17 +39,20 @@ db.connect((err) => {
     console.log('Connected to MySQL database!');
 });
 
-// Endpoint for complete onboarding (register new business)
+// Onboarding (register business)
 app.post('/api/complete-onboarding', (req, res) => {
     const {
         manager_first_name,
         manager_last_name,
-        horeca_name, // inserted as horeca_name
+        horeca_name,
         address,
         phonenumber,
         email,
         password
     } = req.body;
+
+    // hash het wachtwoord
+    const hashed = bcrypt.hashSync(password, 10);
 
     const sql = `
     INSERT INTO business_info
@@ -65,7 +66,7 @@ app.post('/api/complete-onboarding', (req, res) => {
         address,
         phonenumber,
         email,
-        password
+        hashed
     ];
 
     db.query(sql, params, (err, result) => {
@@ -77,39 +78,44 @@ app.post('/api/complete-onboarding', (req, res) => {
     });
 });
 
-// Endpoint for login
+// Login endpoint
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
 
-    // Find user by email
     const sql = 'SELECT * FROM business_info WHERE email = ?';
     db.query(sql, [email], (err, results) => {
         if (err) {
             console.error('Database error:', err);
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({ success: false, message: 'Database error' });
         }
         if (results.length === 0) {
-            // User not found
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
+
         const user = results[0];
-        // Compare hashed passwords
-        if (bcrypt.compareSync(password, user.password)) {
-            // Save user details in session
-            req.session.user = {
-                id: user.id,
-                email: user.email,
-                manager_first_name: user.manager_first_name,
-                manager_last_name: user.manager_last_name,
-            };
-            return res.json({ success: true, user: req.session.user });
-        } else {
+        if (!bcrypt.compareSync(password, user.password)) {
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
+
+        // ✔ Sessiestore vullen
+        req.session.user = {
+            id: user.id,
+            email: user.email,
+            horeca_name: user.horeca_name,
+            manager_first_name: user.manager_first_name,
+            manager_last_name: user.manager_last_name
+        };
+
+        // Retourneer alleen wat de client nodig heeft
+        res.json({
+            success: true,
+            business_id: user.id,
+            horeca_name: user.horeca_name
+        });
     });
 });
 
-// Middleware to check if the user is authenticated
+// Middleware: sessie check
 function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
         return next();
@@ -117,11 +123,74 @@ function isAuthenticated(req, res, next) {
     res.status(401).json({ error: 'Not authenticated' });
 }
 
-// Protected route to get logged-in user info
+// Optioneel: endpoint om client de ingelogde gebruiker terug te geven
 app.get('/api/user', isAuthenticated, (req, res) => {
     res.json({ user: req.session.user });
 });
 
+// Menu-items ophalen voor de ingelogde zaak
+app.get('/api/menu-items', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+
+    const sql = `
+    SELECT
+      mi.id_menu_item,
+      mi.product_id,
+      p.name          AS item_name,
+      p.brand         AS producent,
+      c.category_name AS category,
+      sc.subcat_name  AS subcategory,
+      mi.price,
+      mi.created_at
+    FROM menu_items mi
+    JOIN products       p   ON mi.product_id     = p.id_product
+    JOIN categories     c   ON p.id_category     = c.id_category
+    LEFT JOIN subcategories sc ON p.id_subcategory = sc.id_subcat
+    WHERE mi.business_id = ?
+    ORDER BY mi.id_menu_item
+  `;
+
+    db.query(sql, [businessId], (err, results) => {
+        if (err) {
+            console.error('Fout bij ophalen menu_items:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(results);
+    });
+});
+
+app.patch('/api/menu-items', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+    const updates     = req.body.updates; // [ { id_menu_item, price }, … ]
+
+    if (!Array.isArray(updates)) {
+        return res.status(400).json({ error: 'Invalid payload' });
+    }
+
+    const sql = `
+    UPDATE menu_items
+       SET price = ?
+     WHERE id_menu_item = ?
+       AND business_id = ?
+  `;
+    let errored = false;
+
+    updates.forEach(({ id_menu_item, price }) => {
+        db.query(sql, [price, id_menu_item, businessId], err => {
+            if (err) {
+                console.error('Failed update', id_menu_item, err);
+                errored = true;
+            }
+        });
+    });
+
+    if (errored) {
+        return res.status(500).json({ error: 'Some updates failed' });
+    }
+    res.json({ success: true });
+});
+
+// finally start the server
 app.listen(3007, () => {
     console.log('Server running on http://localhost:3007');
 });

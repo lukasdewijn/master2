@@ -59,14 +59,7 @@ const TopWorstSellers = () => {
                 {/* Segment Display */}
                 <div className="segment-section">
                     <h2 className="section-title">Top & Worst</h2>
-                    <div className="segment-bars">
-                        {segments.map((segment, index) => (
-                            <div key={index} className="segment-bar">
-                                <div className="bar-value">{segment.value}</div>
-                                <button className="segment-button">{segment.name}</button>
-                            </div>
-                        ))}
-                    </div>
+
                 </div>
 
                 {/* Items List */}
