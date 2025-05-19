@@ -138,9 +138,27 @@ const Menu = () => {
 
     return (
         <div className="menu-container">
+            {/* ─────── Existing menu ─────── */}
+            <div className="menu-header">
+                {!editMode ? (
+                    <button className="edit-save-btn" onClick={() => setEditMode(true)}>
+                        Edit
+                    </button>
+                ) : (
+                    <>
+                        <button className="edit-save-btn" onClick={handleSave}>
+                            Confirm
+                        </button>
+                        <button className="edit-cancel-btn" onClick={handleCancel}>
+                            Cancel
+                        </button>
+                    </>
+                )}
+            </div>
             {/* ────── Add-form (ENKEL als editMode) ────── */}
             {editMode && (
                 <form className="add-form" onSubmit={handleAdd}>
+                    <h2> Add item: </h2>
                     <input
                         list="products-dl"
                         placeholder="Item naam…"
@@ -191,25 +209,15 @@ const Menu = () => {
                 </form>
             )}
 
-            {/* ─────── Existing menu ─────── */}
-            <div className="menu-header">
-                {!editMode ? (
-                    <button className="edit-save-btn" onClick={() => setEditMode(true)}>
-                        Edit
-                    </button>
-                ) : (
-                    <>
-                        <button className="edit-save-btn" onClick={handleSave}>
-                            Confirm
-                        </button>
-                        <button className="edit-cancel-btn" onClick={handleCancel}>
-                            Cancel
-                        </button>
-                    </>
-                )}
-            </div>
 
-            <div className="menu-list-container">
+
+            <div className="menu-list-container"
+                 style={{
+                     maxHeight: editMode
+                         ? 'calc(100vh - 17rem)'   // iets kleiner wanneer je het add-form + knoppen ziet
+                         : 'calc(100vh - 11rem)'   // de originele hoogte
+                 }}>
+
                 {Object.entries(grouped).map(([category, items]) => (
                     <section key={category} className="menu-section">
                         <h3 className="menu-category">{category}</h3>
