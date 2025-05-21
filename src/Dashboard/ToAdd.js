@@ -102,14 +102,14 @@ const seasonIconMap = {
 const idealCounts = {
     Beer:              11,
     Cocktail:           8,
-    Coffee:             6,
+    Coffee:             4,
     Juices:             5,
     Mocktails:          7,
     'Soft Drinks':      6,
-    Spirits:            9,
+    Spirits:            3,
     'Sport/Energy Drinks': 4,
     'Tea & Infusions':  5,
-    Wine:               10
+    Wine:               4
 };
 
 const ToAdd = () => {
