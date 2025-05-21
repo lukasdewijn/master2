@@ -101,7 +101,7 @@ const Basisinformatie = () => {
 
         // 4. Send the final data to the server via Axios
         try {
-            const response = await axios.post('http://localhost:3007/api/complete-onboarding', finalData);
+            const response = await axios.post('${process.env.REACT_APP_API_URL}/api/complete-onboarding', finalData);
             console.log('Server response:', response.data);
         } catch (error) {
             console.error('Error sending data to server:', error);

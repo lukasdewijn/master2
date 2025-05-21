@@ -30,7 +30,7 @@ const LandingPage = () => {
     // Handler to validate the login credentials
     const handleLogin = async () => {
         try {
-            const res = await axios.post('http://localhost:3007/api/login', loginData);
+            const res = await axios.post('${process.env.REACT_APP_API_URL}/api/login', loginData);
             if (res.data.success) {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('business_id', res.data.business_id);

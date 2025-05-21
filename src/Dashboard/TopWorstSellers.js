@@ -73,7 +73,7 @@ const TopWorstSellers = () => {
 
     // Fetch business address info
     useEffect(() => {
-        axios.get('http://localhost:3007/api/business-info', { withCredentials: true })
+        axios.get('${process.env.REACT_APP_API_URL}/api/business-info', { withCredentials: true })
             .then(res => setBusinessCity(res.data.city || ''))
             .catch(err => console.error('Business-info error', err));
     }, []);
@@ -82,8 +82,8 @@ const TopWorstSellers = () => {
     useEffect(() => {
         setLoading(true);
         Promise.all([
-            axios.get('http://localhost:3007/api/sales', { withCredentials: true }),
-            axios.get('http://localhost:3007/api/sales/last-year', { withCredentials: true }),
+            axios.get('${process.env.REACT_APP_API_URL}/api/sales', { withCredentials: true }),
+            axios.get('${process.env.REACT_APP_API_URL}/api/sales/last-year', { withCredentials: true }),
         ])
             .then(([currentRes, lastYearRes]) => {
                 const lastYearMap = new Map(

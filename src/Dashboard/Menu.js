@@ -26,8 +26,8 @@ const Menu = () => {
         const fetchAll = async () => {
             try {
                 const [menuRes, prodRes] = await Promise.all([
-                    axios.get('http://localhost:3007/api/menu-items',    { withCredentials: true }),
-                    axios.get('http://localhost:3007/api/products',      { withCredentials: true })
+                    axios.get('${process.env.REACT_APP_API_URL}/api/menu-items',    { withCredentials: true }),
+                    axios.get('${process.env.REACT_APP_API_URL}/api/products',      { withCredentials: true })
                 ]);
                 setMenuItems(menuRes.data);
                 setProductsList(prodRes.data);
@@ -79,7 +79,7 @@ const Menu = () => {
             // verwijder gemarkeerde items
             for (let id of toDelete) {
                 await axios.delete(
-                    `http://localhost:3007/api/menu-items/${id}`,
+                    `${process.env.REACT_APP_API_URL}/api/menu-items/${id}`,
                     { withCredentials: true }
                 );
             }
@@ -92,13 +92,13 @@ const Menu = () => {
                 }));
             if (updates.length) {
                 await axios.patch(
-                    'http://localhost:3007/api/menu-items',
+                    '${process.env.REACT_APP_API_URL}/api/menu-items',
                     { updates },
                     { withCredentials: true }
                 );
             }
             // opnieuw inladen
-            const res = await axios.get('http://localhost:3007/api/menu-items', { withCredentials: true });
+            const res = await axios.get('${process.env.REACT_APP_API_URL}/api/menu-items', { withCredentials: true });
             setMenuItems(res.data);
             setEditMode(false);
             setToDelete(new Set());
@@ -113,14 +113,14 @@ const Menu = () => {
         e.preventDefault();
         try {
             await axios.post(
-                'http://localhost:3007/api/menu-items',
+                '${process.env.REACT_APP_API_URL}/api/menu-items',
                 {
                     product_id: newItem.productId,
                     price:      Number(newItem.price)
                 },
                 { withCredentials: true }
             );
-            const res = await axios.get('http://localhost:3007/api/menu-items', { withCredentials: true });
+            const res = await axios.get('${process.env.REACT_APP_API_URL}/api/menu-items', { withCredentials: true });
             setMenuItems(res.data);
             setNewItem({ productId:'', name:'', brand:'', price:'' });
         } catch (err) {

@@ -132,7 +132,7 @@ const ToAdd = () => {
 
 // Fetch business address info
     useEffect(() => {
-        axios.get('http://localhost:3007/api/business-info', { withCredentials: true })
+        axios.get('${process.env.REACT_APP_API_URL}/api/business-info', { withCredentials: true })
             .then(res => {
                 // stel city én country in, vul default lege string in als ’t niet bestaat
                 setBusinessCity(res.data.city || '');
@@ -142,7 +142,7 @@ const ToAdd = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:3007/api/menu-counts', { withCredentials: true })
+        axios.get('${process.env.REACT_APP_API_URL}/api/menu-counts', { withCredentials: true })
             .then(res => {
                 console.log('menu-counts raw:', res.data);
                 const byCat = res.data.reduce((acc, { category, count_on_menu }) => {
@@ -159,7 +159,7 @@ const ToAdd = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('http://localhost:3007/api/items-not-on-menu', { withCredentials: true })
+        axios.get('${process.env.REACT_APP_API_URL}/api/items-not-on-menu', { withCredentials: true })
             .then(res => {
                 const mapped = res.data.map(i => ({
                     id: i.id_product,
