@@ -157,6 +157,13 @@
     font-size: x-large;
 }
 
+.item-name{
+    font-weight: bold;
+    color: var(--oxford-blue);
+    font-size: x-large;
+    margin-right: 1rem;
+}
+
 .item-count {
     display: flex;
     justify-content: flex-end;
@@ -189,4 +196,27 @@
 .search-bar input::placeholder {
     color: #fa954b;
     opacity: 0.7;
+}
+
+.item-icons{
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.item-main{
+    display: flex;
+}
+
+.debug-segments{
+    color: black;
+}
+
+.item-diff{
+    font-size: small;
+}
+
+.item-stats{
+    display: flex;
+    align-items: center;
 }

@@ -1,111 +1,257 @@
-import React, { useState } from 'react';
+// ===== TopWorstSellers.js =====
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './TopWorstSellers.css';
-import Optionbar from "./Optionbar";
-import { segmentOptions, locationOptions, seasonOptions, highlightOptions } from './Icons/optionbarOptions';
+import Optionbar from './Optionbar';
+
+// Import category icons
+import beerIcon from './Icons/beer.svg';
+import cocktailIcon from './Icons/cocktail.svg';
+import coffeeIcon from './Icons/coffee.svg';
+import juicesIcon from './Icons/juices.svg';
+import mocktailsIcon from './Icons/mocktails.svg';
+import softdrinksIcon from './Icons/softdrinks.svg';
+import spiritsIcon from './Icons/spirits.svg';
+import sportdrinksIcon from './Icons/sportdrinks.svg';
+import teaIcon from './Icons/tea.svg';
+import wineIcon from './Icons/wine.svg';
+
+// Import highlight icons
+import highMarginIcon from './Icons/highmargin.svg';
+import trendingIcon from './Icons/trending.svg';
+import ecoIcon from './Icons/ecofriendly.svg';
+import summerIcon from './Icons/summer.svg';
+import winterIcon from './Icons/winter.svg';
+import autumnIcon from './Icons/autumn.svg';
+import springIcon from './Icons/spring.svg';
+
+// Import production location icons
+import locallyIcon from './Icons/locallyproduced.svg';
+import belgiumIcon from './Icons/madeinbelgium.svg';
+import globalIcon from './Icons/globallysourced.svg';
+import {highlightOptions, locationOptions, seasonOptions, segmentOptions} from "./Icons/optionbarOptions";
+
+// Map category names to icons
+const categoryIconMap = {
+    Beer: beerIcon,
+    Cocktail: cocktailIcon,
+    Coffee: coffeeIcon,
+    Juices: juicesIcon,
+    Mocktails: mocktailsIcon,
+    'Soft Drinks': softdrinksIcon,
+    Spirits: spiritsIcon,
+    'Sport/Energy Drinks': sportdrinksIcon,
+    'Tea & Infusions': teaIcon,
+    Wine: wineIcon
+};
+
+// Map season to icons
+const seasonIconMap = {
+    Summer: summerIcon,
+    Winter: winterIcon,
+    Autumn: autumnIcon,
+    Spring: springIcon
+};
+
 
 
 const TopWorstSellers = () => {
-    const segments = [
-        { name: 'Rum-based', value: '12.312' },
-        { name: 'Whisky infused', value: '1453' },
-        { name: 'Wodka-based', value: '854' },
-        { name: 'Gin-based', value: '652' },
-    ];
-
-    const allItems = [
-        { name: 'Bacardi cola', count: 120 },
-        { name: 'Gin tonic', count: 95 },
-        { name: 'Mojito', count: 85 },
-        { name: 'Whiskey sour', count: 77 },
-        { name: 'Espresso martini', count: 63 },
-        { name: 'Pina colada', count: 110 },
-        { name: 'Tequila sunrise', count: 52 },
-        { name: 'Caipirinha', count: 88 },
-        { name: 'Cosmopolitan', count: 69 },
-        { name: 'Bloody mary', count: 45 },
-        { name: 'Mai tai', count: 58 },
-        { name: 'Dark and stormy', count: 76 },
-        { name: 'Screwdriver', count: 81 },
-        { name: 'Blue lagoon', count: 49 },
-        { name: 'Old fashioned', count: 130 },
-        { name: 'Manhattan', count: 67 },
-        { name: 'Negroni', count: 92 },
-        { name: 'Cuba libre', count: 60 },
-        { name: 'Tom Collins', count: 55 },
-        { name: 'Sidecar', count: 72 },
-    ];
-
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('top'); // "top" or "worst"
+    const [sortOrder, setSortOrder] = useState('top');
+    const [items, setItems] = useState([]);
+    const [businessCity, setBusinessCity] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Sort items based on sortOrder
-    const sortedItems = [...allItems].sort((a, b) => {
-        if (sortOrder === 'top') {
-            return b.count - a.count; // Descending order
-        } else {
-            return a.count - b.count; // Ascending order
-        }
+    const [filters, setFilters] = useState({
+        segments:   new Set(segmentOptions.map(o => o.id)),
+        highlights: new Set(highlightOptions.map(o => o.id)),
+        seasons:    new Set(seasonOptions.map(o => o.id)),
+        locations:  new Set(locationOptions.map(o => o.id)),
     });
 
-    // Filter items based on searchTerm
-    const filteredItems = sortedItems.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // Fetch business address info
+    useEffect(() => {
+        axios.get('http://localhost:3007/api/business-info', { withCredentials: true })
+            .then(res => setBusinessCity(res.data.city || ''))
+            .catch(err => console.error('Business-info error', err));
+    }, []);
+
+    // Fetch sales with production location
+    useEffect(() => {
+        setLoading(true);
+        axios.get('http://localhost:3007/api/sales', { withCredentials: true })
+            .then(res => {
+                const mapped = res.data.map(i => ({
+                    id: i.id_menu_item,
+                    name: i.item_name,
+                    count: i.total_sold ?? i.sold_count,
+                    category: i.category,
+                    high_margin: i.is_high_margin === 1,
+                    trending: i.is_trending === 1,
+                    eco_friendly: i.eco_friendly === 'Yes' || i.eco_friendly === 1,
+                    season: i.season || 'Unknown',
+                    prodCity: i.stad,
+                    prodCountry: i.land,
+                    categoryId:   i.id_category,
+                }));
+                setItems(mapped);
+            })
+            .catch(err => {
+                console.error('Fetch sales failed:', err);
+                setError('Kon verkoopcijfers niet laden');
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    if (loading) return <p>Loading…</p>;
+    if (error) return <p className="error">{error}</p>;
+
+    // Sort and filter by searchTerm
+    const sorted = [...items].sort((a, b) =>
+        sortOrder === 'top' ? b.count - a.count : a.count - b.count
     );
+    // filtered by search + filters
+    const visible = sorted.filter(item => {
+        // search
+        if(!item.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+        // segment
+        if(!filters.segments.has(item.category.toLowerCase())) return false;
+
+        // highlight filter: must match any selected highlight if any toggled
+        if(!filters.highlights.has(highlightOptions.find(o=>o.label==='High Margin').id) && item.high_margin === true) return false;
+        if(!filters.highlights.has(highlightOptions.find(o=>o.label==='Trending').id) && item.trending === true) return false;
+        if(!filters.highlights.has(highlightOptions.find(o=>o.label==='Eco-Friendly').id) && item.eco_friendly === true) return false;
+
+        if(!filters.seasons.has(seasonOptions.find(o=>o.label==='Summer').id) && item.season === "Summer") return false;
+        if(!filters.seasons.has(seasonOptions.find(o=>o.label==='Winter').id) && item.season === "Winter") return false;
+        if(!filters.seasons.has(seasonOptions.find(o=>o.label==='Spring').id) && item.season === "Spring") return false;
+        if(!filters.seasons.has(seasonOptions.find(o=>o.label==='Autumn').id) && item.season === "Autumn") return false;
+
+        // Location filter: determine label then check id
+        const locLabel = item.prodCity===businessCity
+            ? 'Locally Produced'
+            : (item.prodCountry==='Belgium' ? 'Made in Belgium' : 'Globally Sourced');
+        const locOpt = locationOptions.find(o => o.label===locLabel);
+        if (locOpt && !filters.locations.has(locOpt.id)) return false;
+        return true;
+    });
 
     return (
         <div className="top-worst-container">
-
             <div className="centre-content">
-                {/* Segment Display */}
                 <div className="segment-section">
-                    <h2 className="section-title">Top & Worst</h2>
+                    <h2 className="section-title">Statistics</h2>
 
                 </div>
-
-                {/* Items List */}
                 <div className="items-section">
+                    {/* header */}
                     <div className="list-header">
                         <div className="header-title">
-                            <p>Top & Worst</p>
-                            <h2 className="section-title">Cocktail-items</h2>
+                            <p>Statistics</p>
+                            <h2 className="section-title">Menu-items</h2>
                         </div>
                         <div className="section-order">
-                        <span
-                            className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
-                            onClick={() => setSortOrder('top')}
-                        >
-                            Top sellers ↑
-                        </span>
+              <span
+                  className={`order-button ${sortOrder === 'top' ? 'active' : ''}`}
+                  onClick={() => setSortOrder('top')}
+              >Top sellers ↑</span>
                             <span
                                 className={`order-button ${sortOrder === 'worst' ? 'active' : ''}`}
                                 onClick={() => setSortOrder('worst')}
-                            >
-                            Worst sellers ↓
-                        </span>
+                            >Worst sellers ↓</span>
                         </div>
-                        {/* Search Bar */}
                         <div className="search-bar">
                             <input
                                 type="text"
                                 placeholder="Search"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={e => setSearchTerm(e.target.value)}
                             />
                         </div>
                     </div>
+                    {/* list */}
                     <ul className="items-list">
-                        {filteredItems.map((item, index) => (
-                            <li key={index} className="item">
-                            <span>
-                                {index + 1}. {item.name}
-                            </span>
+                        {visible.map((item, idx) => (
+                            <li key={item.id} className="item">
+                                <div className="item-main">
+                                    <span className="item-rank">{idx + 1}.</span>
+                                    <span className="item-name">{item.name}</span>
+                                    <div className="item-icons">
+                                        {/* category icon */}
+                                        {item.category && categoryIconMap[item.category] && (
+                                            <img
+                                                src={categoryIconMap[item.category]}
+                                                alt={item.category}
+                                                title={item.category}
+                                                className="category-icon"
+                                            />
+                                        )}
+                                        {/* high margin */}
+                                        {item.high_margin && (
+                                            <img
+                                                src={highMarginIcon}
+                                                alt="High Margin"
+                                                title="High Margin"
+                                                className="highlight-icon"
+                                            />
+                                        )}
+                                        {/* trending */}
+                                        {item.trending && (
+                                            <img
+                                                src={trendingIcon}
+                                                alt="Trending"
+                                                title="Trending"
+                                                className="highlight-icon"
+                                            />
+                                        )}
+                                        {/* eco-friendly */}
+                                        {item.eco_friendly && (
+                                            <img
+                                                src={ecoIcon}
+                                                alt="Eco Friendly"
+                                                title="Eco Friendly"
+                                                className="highlight-icon"
+                                            />
+                                        )}
+                                        {/* season */}
+                                        {item.season !== 'Unknown' && seasonIconMap[item.season] && (
+                                            <img
+                                                src={seasonIconMap[item.season]}
+                                                alt={item.season}
+                                                title={item.season}
+                                                className="highlight-icon"
+                                            />
+                                        )}
+                                        {/* production location */}
+                                        {item.prodCity && item.prodCountry && (
+                                            <img
+                                                src={
+                                                    // same city => locally
+                                                    item.prodCity === businessCity ? locallyIcon :
+                                                        // same country (Belgium) => made in Belgium
+                                                        (item.prodCountry === 'Belgium' ? belgiumIcon : globalIcon)
+                                                }
+                                                alt={
+                                                    item.prodCity === businessCity ? 'Locally Produced' :
+                                                        (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Global')
+                                                }
+                                                title={
+                                                    item.prodCity === businessCity ? 'Locally Produced' :
+                                                        (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Sourced Globally')
+                                                }
+                                                className="location-icon"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
                                 <span className="item-count">{item.count} sold</span>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
-            <Optionbar title="Segments" />
+            <Optionbar filters={filters} onChange={setFilters} />
         </div>
     );
 };

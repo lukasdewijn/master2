@@ -1,46 +1,60 @@
-// Optionbar.js
+// ===== Optionbar.js =====
 import React from 'react';
 import './Optionbar.css';
 import {
     segmentOptions,
-    locationOptions,
+    highlightOptions,
     seasonOptions,
-    highlightOptions
+    locationOptions
 } from './Icons/optionbarOptions';
 
-// Grouped option arrays with titles
+// Grouped option arrays with keys and titles
 const optionCategories = [
-    { title: 'Segments', options: segmentOptions },
-    { title: 'Highlights', options: highlightOptions },
-    { title: 'Seasons', options: seasonOptions },
-    { title: 'Location Produced', options: locationOptions },
+    { key: 'segments', title: 'Segments', options: segmentOptions },
+    { key: 'highlights', title: 'Highlights', options: highlightOptions },
+    { key: 'seasons', title: 'Seasons', options: seasonOptions },
+    { key: 'locations', title: 'Location Produced', options: locationOptions }
 ];
 
-const Optionbar = () => {
-    return (
-        <div className="optionbar-container">
-            <h3 className="optionbar-title">Filters & Categories</h3>
+/**
+ * Controlled filter sidebar
+ * Props:
+ *  - filters: {
+ *      segments: Set<number>,
+ *      highlights: Set<number>,
+ *      seasons: Set<number>,
+ *      locations: Set<number>
+ *    }
+ *  - onChange: (newFilters) => void
+ */
+export default function Optionbar({ filters, onChange }) {
+    const toggleOption = (groupKey, id) => {
+        const updated = new Set(filters[groupKey]);
+        if (updated.has(id)) updated.delete(id);
+        else updated.add(id);
+        onChange({ ...filters, [groupKey]: updated });
+    };
 
-            {/* Scrollable wrapper starts here */}
+    return (
+        <nav className="optionbar-container">
+            <h3 className="optionbar-title">Filters & Categories</h3>
             <div className="optionbar-scrollable">
-                {optionCategories.map((category, idx) => (
-                    <div key={category.title} className="optionbar-group">
+                {optionCategories.map((grp, idx) => (
+                    <div key={grp.key} className="optionbar-group">
                         {idx > 0 && <hr className="optionbar-divider" />}
+                        <h4 className="optionbar-group-title">{grp.title}</h4>
                         <ul className="optionbar-list">
-                            {category.options.map((option) => (
-                                <li key={option.id} className="option-item">
+                            {grp.options.map(opt => (
+                                <li key={opt.id} className="option-item">
                                     <input
                                         type="checkbox"
-                                        id={option.id}
-                                        defaultChecked={option.checked}
+                                        id={`${grp.key}-${opt.id}`}
+                                        checked={filters[grp.key].has(opt.id)}
+                                        onChange={() => toggleOption(grp.key, opt.id)}
                                     />
-                                    <label htmlFor={option.id} className="option-label">
-                                        <img
-                                            src={option.icon}
-                                            alt={`${option.label} icon`}
-                                            className="option-icon"
-                                        />
-                                        {option.label}
+                                    <label htmlFor={`${grp.key}-${opt.id}`} className="option-label">
+                                        <img src={opt.icon} alt={opt.label} className="option-icon" />
+                                        {opt.label}
                                     </label>
                                 </li>
                             ))}
@@ -48,9 +62,6 @@ const Optionbar = () => {
                     </div>
                 ))}
             </div>
-            {/* Scrollable wrapper ends here */}
-        </div>
+        </nav>
     );
-};
-
-export default Optionbar;
+}

@@ -366,7 +366,6 @@ const ToReprice = () => {
                     </ul>
                 </div>
             </div>
-            <Optionbar title="Segments"/>
         </div>
     );
 };

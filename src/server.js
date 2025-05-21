@@ -265,3 +265,127 @@ app.post('/api/menu-items', isAuthenticated, (req, res) => {
         res.json({ success: true, insertId: result.insertId });
     });
 });
+
+
+
+// ===== server.js (sales endpoint) =====
+app.get('/api/sales', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+    const sql = `
+    SELECT
+      mi.id_menu_item,
+      p.id_category                  AS id_category,
+      p.name                         AS item_name,
+      p.brand                        AS producent,
+      cat.category_name              AS category,  -- changed alias to 'category'
+      sub.subcat_name                AS subcategorie,
+      mi.price,
+      mi.created_at,
+      p.production_country           AS land,
+      p.production_city              AS stad,
+      COUNT(s.sold_id)               AS total_sold,
+      p.is_trending,
+      p.is_high_margin,
+      p.eco_friendly,
+      COALESCE(p.season,'Unknown')   AS season
+    FROM menu_items        AS mi
+    JOIN products          AS p   ON mi.product_id     = p.id_product
+    JOIN categories        AS cat ON p.id_category     = cat.id_category
+    LEFT JOIN subcategories AS sub ON p.id_subcategory = sub.id_subcat
+    LEFT JOIN sales        AS s ON s.menu_item_id     = mi.id_menu_item
+      AND s.sold_at BETWEEN '2025-01-01' AND '2025-12-31'
+    WHERE mi.business_id = ?
+    GROUP BY
+      mi.id_menu_item,
+      p.id_category,
+      p.name,
+      p.brand,
+      cat.category_name,
+      sub.subcat_name,
+      mi.price,
+      mi.created_at,
+      p.production_country,
+      p.production_city,
+      p.is_trending,
+      p.is_high_margin,
+      p.eco_friendly,
+      p.season
+    ORDER BY mi.id_menu_item;
+  `;
+    db.query(sql, [businessId], (err, results) => {
+        if (err) {
+            console.error('Error fetching sales:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(results);
+    });
+});
+
+app.get('/api/business-info', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+    const sql = 'SELECT address FROM business_info WHERE id = ?';
+    db.query(sql, [businessId], (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        if (!results.length) return res.status(404).json({ error: 'Business not found' });
+        const address = results[0].address || '';
+        // assume format "street, city"
+        const parts = address.split(',').map(s => s.trim());
+        const city = parts.length > 1 ? parts[parts.length - 1] : '';
+        // no country stored separately; default to empty
+        res.json({ city, country: '' });
+    });
+});
+
+// Sales endpoint for last year
+app.get('/api/sales/last-year', isAuthenticated, (req, res) => {
+    const businessId = req.session.user.id;
+    const sql = `
+    SELECT
+      mi.id_menu_item,
+      p.id_category            AS id_category,
+      p.name                   AS item_name,
+      p.brand                  AS producent,
+      cat.category_name        AS category,
+      sub.subcat_name          AS subcategorie,
+      mi.price,
+      mi.created_at,
+      p.production_country     AS land,
+      p.production_city        AS stad,
+      COUNT(s.sold_id)         AS total_sold,
+      p.is_trending,
+      p.is_high_margin,
+      p.eco_friendly,
+      COALESCE(p.season,'Unknown') AS season
+    FROM menu_items        AS mi
+    JOIN products          AS p   ON mi.product_id     = p.id_product
+    JOIN categories        AS cat ON p.id_category     = cat.id_category
+    LEFT JOIN subcategories AS sub ON p.id_subcategory = sub.id_subcat
+    LEFT JOIN sales        AS s   ON s.menu_item_id    = mi.id_menu_item
+      AND s.sold_at BETWEEN CONCAT(YEAR(CURDATE())-1,'-01-01')
+                        AND CONCAT(YEAR(CURDATE())-1,'-12-31')
+    WHERE mi.business_id = ?
+    GROUP BY
+      mi.id_menu_item,
+      p.id_category,
+      p.name,
+      p.brand,
+      cat.category_name,
+      sub.subcat_name,
+      mi.price,
+      mi.created_at,
+      p.production_country,
+      p.production_city,
+      p.is_trending,
+      p.is_high_margin,
+      p.eco_friendly,
+      p.season
+    ORDER BY mi.id_menu_item;
+  `;
+    db.query(sql, [businessId], (err, results) => {
+        if (err) {
+            console.error('Error fetching last-year sales:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(results);
+    });
+});
