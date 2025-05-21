@@ -220,3 +220,50 @@
     display: flex;
     align-items: center;
 }
+
+/* Statistics cards container */
+.stats-cards {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Elke individuele kaart */
+.stat-card {
+    background: var(--ivory);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    flex: 1 1 200px; /* min-width 200px, groeit mee */
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stat-card h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.stat-card p {
+    margin: 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Hover effect */
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.stat-card-item{
+    font-size: 1.2rem;
+}
+
+.stat-card-number{
+    font-size: 2rem;
+    color: black;
+    font-weight: 500;
+}

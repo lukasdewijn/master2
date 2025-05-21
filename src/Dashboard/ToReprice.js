@@ -315,20 +315,7 @@ const ToReprice = () => {
                 <div className="reprice-items-section">
                     <div className="r-list-header">
                         <h2 className="header-title">To Reprice Items</h2>
-                        <div className="r-section-order">
-                            {[
-                                { label: 'Te Hoog ↑', key: 'top' },
-                                { label: 'Te Laag ↓', key: 'worst' }
-                            ].map(({ label, key }) => (
-                                <div
-                                    key={key}
-                                    className={`order-button ${sortOrder === key ? 'active' : ''}`}
-                                    onClick={() => setSortOrder(key)}
-                                >
-                                    {label}
-                                </div>
-                            ))}
-                        </div>
+
                         <div className="r-search-bar">
                             <input
                                 type="text"

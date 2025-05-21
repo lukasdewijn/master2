@@ -7,6 +7,7 @@ import WrappedDashboard from "./WrappedDashboard";
 import Menu from "./Menu";
 import './Layout.css';
 import '../index.css';
+import ToAdd from "./ToAdd";
 
 // Stub components voor de overige opties
 const ToAddComponent    = () => <div><h2>To Add Component</h2><p>Coming soon...</p></div>;
@@ -24,7 +25,7 @@ const Layout = ({ children }) => {
             MainContent = <WrappedDashboard />;
             break;
         case 'to-add':
-            MainContent = <ToAddComponent />;
+            MainContent = <ToAdd />;
             break;
         case 'to-remove':
             MainContent = <ToRemoveComponent />;

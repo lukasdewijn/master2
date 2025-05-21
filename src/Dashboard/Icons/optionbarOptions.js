@@ -33,7 +33,7 @@ export const segmentOptions = [
     { id: 'mocktails', label: 'Mocktails', checked: true, icon: mocktailsIcon },
     { id: 'soft drinks', label: 'Soft Drinks', checked: true, icon: softdrinksIcon },
     { id: 'spirits', label: 'Spirits', checked: true, icon: spiritsIcon },
-    { id: 'sport/energy Drinks', label: 'Sport/Energy Drinks', checked: true, icon: sportdrinksIcon },
+    { id: 'sport/energy drinks', label: 'Sport/Energy Drinks', checked: true, icon: sportdrinksIcon },
     { id: 'tea & infusions', label: 'Tea & Infusions', checked: true, icon: teaIcon },
     { id: 'wine', label: 'Wine', checked: true, icon: wineIcon },
 ];

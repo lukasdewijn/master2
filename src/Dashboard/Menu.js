@@ -165,26 +165,28 @@ const Menu = () => {
                         value={newItem.name}
                         onChange={e => {
                             const val = e.target.value;
-                            setNewItem(ni => ({ ...ni, name: val }));
+                            setNewItem(ni => ({...ni, name: val}));
                             const match = productsList.find(p => p.name === val);
                             if (match) {
                                 setNewItem(ni => ({
                                     ...ni,
                                     productId: match.id_product,
-                                    brand:     match.brand
+                                    brand: match.brand
                                 }));
                             } else {
-                                setNewItem(ni => ({ ...ni, productId:'', brand:'' }));
+                                setNewItem(ni => ({...ni, productId: '', brand: ''}));
                             }
                         }}
                         required
                     />
-                    <datalist id="products-dl">
-                        {productsList.map(p => (
-                            <option key={p.id_product} value={p.name}>
-                                {p.brand}
-                            </option>
-                        ))}
+                    <datalist id="products-dl">  {productsList.map(p => (
+                        <option
+                            key={p.id_product}
+                            value={p.name}
+                            // you can also include a label attribute if you want the brand in the dropdown UI
+                            label={p.brand}
+                        />
+                    ))}
                     </datalist>
 
                     <input
@@ -199,7 +201,7 @@ const Menu = () => {
                         step="0.01"
                         placeholder="Prijs"
                         value={newItem.price}
-                        onChange={e => setNewItem(ni => ({ ...ni, price: e.target.value }))}
+                        onChange={e => setNewItem(ni => ({...ni, price: e.target.value}))}
                         required
                     />
 
@@ -208,7 +210,6 @@ const Menu = () => {
                     </button>
                 </form>
             )}
-
 
 
             <div className="menu-list-container"
