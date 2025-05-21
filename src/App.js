@@ -84,7 +84,7 @@ function App() {
         <OnboardingProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<WelcomePage />} />
+                    <Route path="/" element={<LandingPage />} />
                     <Route path="/welcomepage" element={<WelcomePage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/typehoreca" element={<TypeHoreca />} />
