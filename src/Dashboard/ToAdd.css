@@ -341,3 +341,184 @@
 .segment-icon{
     width: 2.2rem;
 }
+
+.segment-title-name{
+    font-size: large;
+    font-weight: bolder;
+}
+
+.tooltip-wrapper {
+    margin-top: 0.3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-bubble {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    max-width: 220px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 10;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.2s ease-in-out;
+    font-size: 1rem;
+    line-height: 1.2;
+    pointer-events: none;
+    white-space: normal;
+}
+
+.tooltip-wrapper:hover .tooltip-bubble {
+    visibility: visible;
+    opacity: 1;
+}
+
+.add-button {
+    padding: 0.4rem 1.2rem;
+    background-color: var(--sandy-brown);
+    color: white;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.add-button:hover {
+    background-color: #ff9640; /* iets donkerder tintje van sandy-brown */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(250, 149, 75, 0.4); /* highlight ring */
+}
+
+
+.add-price-input {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.add-price-input input {
+    width: 80px;
+}
+
+.recommended-price {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.confirm-add {
+    background-color: var(--ivory);
+    border-radius: 0.5rem;
+    padding: 0.3rem 1rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.modal-content {
+    background-color: var(--ivory);
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 2rem;
+    width: 100%;
+    max-width: 460px;
+    z-index: 1000;
+    text-align: center;
+    border: 5px solid black;
+    pointer-events: all;
+    font-family: inherit;
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--oxford-blue);
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    color: var(--oxford-blue);
+    margin: 0.5rem 0 1.5rem;
+}
+
+.modal-buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.modal-buttons button {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #eee;
+    transition: all 0.2s ease-in-out;
+}
+
+.modal-buttons button:hover {
+    background-color: var(--sandy-brown);
+    color: white;
+}
+
+.modal-content input[type="number"] {
+    padding: 0.6rem;
+    border-radius: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1.2rem;
+    width: 6rem;
+    margin-bottom: 0.5rem;
+    -moz-appearance: textfield;
+}
+
+.modal-content input[type="number"]::-webkit-inner-spin-button,
+.modal-content input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.add-price-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.modal-price-label{
+    color: black;
+    font-size: large;
+}

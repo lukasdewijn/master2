@@ -54,6 +54,12 @@ const seasonIconMap = {
     Spring: springIcon
 };
 
+const TooltipIcon = ({ src, alt, tooltip, className }) => (
+    <div className="tooltip-wrapper">
+        <img src={src} alt={alt} className={className} />
+        <div className="tooltip-bubble">{tooltip}</div>
+    </div>
+);
 
 
 const TopWorstSellers = () => {
@@ -234,52 +240,52 @@ const TopWorstSellers = () => {
                                         <div className="item-icons">
                                             {/* category icon */}
                                             {item.category && categoryIconMap[item.category] && (
-                                                <img
+                                                <TooltipIcon
                                                     src={categoryIconMap[item.category]}
                                                     alt={item.category}
-                                                    title={item.category}
+                                                    tooltip={item.category}
                                                     className="category-icon"
                                                 />
                                             )}
                                             {/* high margin */}
                                             {item.high_margin && (
-                                                <img
+                                                <TooltipIcon
                                                     src={highMarginIcon}
                                                     alt="High Margin"
-                                                    title="High Margin"
+                                                    tooltip="High Margin"
                                                     className="highlight-icon"
                                                 />
                                             )}
                                             {/* trending */}
                                             {item.trending && (
-                                                <img
+                                                <TooltipIcon
                                                     src={trendingIcon}
                                                     alt="Trending"
-                                                    title="Trending"
+                                                    tooltip="Trending"
                                                     className="highlight-icon"
                                                 />
                                             )}
                                             {/* eco-friendly */}
                                             {item.eco_friendly && (
-                                                <img
+                                                <TooltipIcon
                                                     src={ecoIcon}
                                                     alt="Eco Friendly"
-                                                    title="Eco Friendly"
+                                                    tooltip="Eco Friendly"
                                                     className="highlight-icon"
                                                 />
                                             )}
                                             {/* season */}
                                             {item.season !== 'Unknown' && seasonIconMap[item.season] && (
-                                                <img
+                                                <TooltipIcon
                                                     src={seasonIconMap[item.season]}
                                                     alt={item.season}
-                                                    title={item.season}
+                                                    tooltip={`Popular in the ${item.season}`}
                                                     className="highlight-icon"
                                                 />
                                             )}
                                             {/* production location */}
                                             {item.prodCity && item.prodCountry && (
-                                                <img
+                                                <TooltipIcon
                                                     src={
                                                         // same city => locally
                                                         item.prodCity === businessCity ? locallyIcon :
@@ -290,7 +296,7 @@ const TopWorstSellers = () => {
                                                         item.prodCity === businessCity ? 'Locally Produced' :
                                                             (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Global')
                                                     }
-                                                    title={
+                                                    tooltip={
                                                         item.prodCity === businessCity ? 'Locally Produced' :
                                                             (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Sourced Globally')
                                                     }

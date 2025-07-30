@@ -54,7 +54,7 @@ export default function Optionbar({ filters, onChange }) {
                                     />
                                     <label htmlFor={`${grp.key}-${opt.id}`} className="option-label">
                                         <img src={opt.icon} alt={opt.label} className="option-icon" />
-                                        {opt.label}
+                                        {grp.key === 'seasons' ? `Popular in ${opt.label}` : opt.label}
                                     </label>
                                 </li>
                             ))}

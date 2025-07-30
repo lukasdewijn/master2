@@ -255,9 +255,9 @@
 }
 
 .segment--low { background: #d32f2f; }
-.segment--below-optimal { background: #f9f599;}
+.segment--below-optimal { background: #e69e6a;}
 .segment--optimal { background: #388e3c; }
-.segment--above-optimal { background: #f9f599; }
+.segment--above-optimal { background: #e69e6a; }
 .segment--high { background: #d32f2f; }
 
 .reprice-indicators{
@@ -284,7 +284,7 @@
 .cannibalism-indicator, .pricesens-indicator, .yourprice-indicator{
     display: flex;
     justify-content: center;
-    padding: 1rem 2rem;              /* space around the text */
+    padding: 0.5rem 2rem;              /* space around the text */
     margin-top: 1rem;
     border: 2px solid var(--oxford-blue);
     border-radius: 0.75rem;            /* round the corners */
@@ -389,4 +389,56 @@
     .reprice-items-section .lijst-indicator {
         margin-left: auto;
     }
+}
+
+.reprice-title{
+    font-size: xxx-large;
+    font-weight: bolder;
+}
+
+.set-optimal-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #f2e3bb;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.20); /* ✨ subtle depth */
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.set-optimal-button:hover {
+    background-color: #fa954b;
+}
+
+.tooltip-tr {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-tr-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: var(--ivory);
+    color: #000;
+    text-align: left;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 10;
+    bottom: 100%; /* position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    border: 1px solid #ccc;
+
+}
+
+.tooltip-tr:hover .tooltip-tr-text {
+    visibility: visible;
+    opacity: 1;
 }

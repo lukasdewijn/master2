@@ -156,7 +156,11 @@ app.get('/api/menu-items', isAuthenticated, async (req, res) => {
         name,
         brand,
         categories ( category_name ),
-        subcategories ( subcat_name )
+        subcategories ( subcat_name ),
+        floor_price, 
+        low_price, 
+        high_price, 
+        ceiling_price
       )
     `)
         .eq('business_id', businessId)
@@ -171,7 +175,11 @@ app.get('/api/menu-items', isAuthenticated, async (req, res) => {
         item_name: mi.products.name,
         producent: mi.products.brand,
         category: mi.products.categories.category_name,
-        subcategory: mi.products.subcategories?.subcat_name ?? ''
+        subcategory: mi.products.subcategories?.subcat_name ?? '',
+        floor_price: mi.products.floor_price,
+        low_price: mi.products.low_price,
+        high_price: mi.products.high_price,
+        ceiling_price: mi.products.ceiling_price
     }))
 
     res.json(flattened)
@@ -555,6 +563,8 @@ app.get('/api/items-not-on-menu', isAuthenticated, async (req, res) => {
         is_high_margin,
         eco_friendly,
         season,
+        low_price,
+        high_price,
         categories!inner(category_name)
       `)
             // filter op producten die NIET in takenIds zitten
@@ -569,6 +579,7 @@ app.get('/api/items-not-on-menu', isAuthenticated, async (req, res) => {
         // 3) flatten de category join en stuur terug
         const flattened = products.map(p => ({
             id:           p.id_product,
+            id_product:   p.id_product,
             name:         p.name,
             brand:        p.brand,
             category:     p.categories.category_name,
@@ -577,7 +588,9 @@ app.get('/api/items-not-on-menu', isAuthenticated, async (req, res) => {
             is_trending:  p.is_trending,
             is_high_margin: p.is_high_margin,
             eco_friendly: p.eco_friendly,
-            season:       p.season
+            season:       p.season,
+            low_price:    p.low_price,
+            high_price:   p.high_price,
         }));
 
         res.json(flattened);

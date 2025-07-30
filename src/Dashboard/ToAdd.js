@@ -53,6 +53,13 @@ import hotForYouIcon from './Icons/hotforyou.svg';
 
 import { highlightOptions, locationOptions, seasonOptions, segmentOptions } from './Icons/optionbarOptions';
 
+const TooltipIcon = ({ src, alt, tooltip, className }) => (
+    <div className="tooltip-wrapper">
+        <img src={src} alt={alt} className={className} />
+        <div className="tooltip-bubble">{tooltip}</div>
+    </div>
+);
+
 const categoryIconMap = {
     Beer: beerIcon,
     Cocktail: cocktailIcon,
@@ -127,12 +134,53 @@ const ToAdd = () => {
     });
     const [searchTerm, setSearchTerm] = useState('');
     const [countsByCategory, setCountsByCategory] = useState({});
+    const [addingItems, setAddingItems] = useState({}); // id van item dat je wilt toevoegen
+    const [priceInputs, setPriceInputs] = useState({}); // id: prijs
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [modalPrice, setModalPrice] = useState('');
 
+
+    const PriceModal = ({ item, price, onChange, onClose, onConfirm }) => {
+        if (!item) return null;
+
+        return (
+            <div className="modal-backdrop">
+                <div className="modal-content">
+                    <h3>Add to Menu</h3>
+                    <h2><strong>{item.name}</strong></h2>
+                    <p>Category: <strong>{item.category}</strong></p>
+
+                    {/* Centraal inputveld */}
+                    <div className="add-price-input">
+                        <span className="modal-price-label">Price: €</span>
+                        <input
+                            type="number"
+                            step="0.01"
+                            value={price}
+                            onChange={onChange}
+                            placeholder="Price"
+                            autoFocus
+                        />
+                    </div>
+
+                    <p className="recommended-price">
+                        (Recommended: €{item.recommendedPrice?.toFixed(2) || 'n/a'})
+                    </p>
+
+                    <div className="modal-buttons">
+                        <button onClick={onClose}>Cancel</button>
+                        <button onClick={onConfirm} disabled={!price}>Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+        );
+    };
 
 
 // Fetch business address info
     useEffect(() => {
-        axios.get('http://localhost:3007/api/business-info', { withCredentials: true })
+        axios.get('http://localhost:3007/api/business-info', {withCredentials: true})
             .then(res => {
                 // stel city én country in, vul default lege string in als ’t niet bestaat
                 setBusinessCity(res.data.city || '');
@@ -142,10 +190,10 @@ const ToAdd = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:3007/api/menu-counts', { withCredentials: true })
+        axios.get('http://localhost:3007/api/menu-counts', {withCredentials: true})
             .then(res => {
                 console.log('menu-counts raw:', res.data);
-                const byCat = res.data.reduce((acc, { category, count_on_menu }) => {
+                const byCat = res.data.reduce((acc, {category, count_on_menu }) => {
                     acc[category] = count_on_menu;
                     return acc;
                 }, {});
@@ -163,6 +211,7 @@ const ToAdd = () => {
             .then(res => {
                 const mapped = res.data.map(i => ({
                     id: i.id_product,
+                    id_product: i.id_product,
                     name: i.name,
                     category: i.category,
                     high_margin:   Boolean(i.is_high_margin),
@@ -171,6 +220,7 @@ const ToAdd = () => {
                     season: i.season,
                     prodCity: i.prodCity,
                     prodCountry: i.prodCountry,
+                    recommendedPrice: (i.low_price && i.high_price) ? (i.low_price + i.high_price) / 2 : null,
                     // no sales data for ToAdd
                 }));
                 setItems(mapped);
@@ -235,6 +285,52 @@ const ToAdd = () => {
             .map(([cat]) => cat)
     );
 
+    const handleAddToMenu = async (item, price) => {
+        try {
+            await axios.post(
+                'http://localhost:3007/api/menu-items',
+                {
+                    product_id: item.id_product,
+                    price: parseFloat(price)
+                },
+                { withCredentials: true }
+            );
+
+            // Refresh items
+            const res = await axios.get('http://localhost:3007/api/items-not-on-menu', { withCredentials: true });
+            const mapped = res.data.map(i => ({
+                id: i.id_product,
+                id_product: i.id_product,
+                name: i.name,
+                category: i.category,
+                high_margin: Boolean(i.is_high_margin),
+                trending: Boolean(i.is_trending),
+                eco_friendly: Boolean(i.is_eco_friendly),
+                season: i.season,
+                prodCity: i.prodCity,
+                prodCountry: i.prodCountry,
+
+            }));
+            setItems(mapped);
+
+            setSelectedItem(null);
+            setModalPrice('');
+        } catch (err) {
+            console.error(err);
+            alert('Toevoegen mislukt');
+        }
+
+        // Update segment-tellers
+        const countsRes = await axios.get('http://localhost:3007/api/menu-counts', { withCredentials: true });
+        const byCat = countsRes.data.reduce((acc, { category, count_on_menu }) => {
+            acc[category] = count_on_menu;
+            return acc;
+        }, {});
+        setCountsByCategory(byCat);
+    };
+
+
+
 
     return (
         <div className="top-worst-container">
@@ -242,7 +338,9 @@ const ToAdd = () => {
                 <div className="segment-section">
                     <h2 className="section-title">Category Coverage</h2>
                     <p className="section-subtitle">
-                        Compare your current menu assortment against our recommended targets.
+                        We recommend an ideal number of items per category.
+                        Colored icons show how many you currently have.
+                        Empty or red icons highlight under- or overrepresentation.
                     </p>
                     <div className="segment-icons-grid">
                         {Object.entries(idealCounts).map(([category, ideal]) => {
@@ -283,7 +381,12 @@ const ToAdd = () => {
 
                             return (
                                 <div key={category} className="segment-row">
-                                    <span className="segment-label">{category}</span>
+                                    <span className="segment-label">
+                                        <strong className="segment-title-name">{category}</strong> ({actual}/{ideal})
+                                        {actual < ideal && ` – ${ideal - actual} to add`}
+                                        {actual > ideal && ` – ${actual - ideal} to remove`}
+                                    </span>
+
                                     <div className="segment-icons">
                                         {icons}
                                     </div>
@@ -320,53 +423,53 @@ const ToAdd = () => {
                                     <div className="item-icons">
                                         {/* category icon */}
                                         {item.category && categoryIconMap[item.category] && (
-                                            <img
+                                            <TooltipIcon
                                                 src={categoryIconMap[item.category]}
                                                 alt={item.category}
-                                                title={item.category}
+                                                tooltip={item.category}
                                                 className="category-icon"
                                             />
                                         )}
                                         {/* high margin */}
                                         {item.high_margin && (
-                                            <img
+                                            <TooltipIcon
                                                 src={highMarginIcon}
                                                 alt="High Margin"
-                                                title="High Margin"
+                                                tooltip="High Profit Margin"
                                                 className="highlight-icon"
                                             />
                                         )}
                                         {/* trending */}
                                         {item.trending && (
-                                            <img
+                                            <TooltipIcon
                                                 src={trendingIcon}
                                                 alt="Trending"
-                                                title="Trending"
+                                                tooltip="Trending Item"
                                                 className="highlight-icon"
                                             />
                                         )}
                                         {/* eco-friendly */}
                                         {item.eco_friendly && (
-                                            <img
+                                            <TooltipIcon
                                                 src={ecoIcon}
                                                 alt="Eco Friendly"
-                                                title="Eco Friendly"
+                                                tooltip="Eco Friendly"
                                                 className="highlight-icon"
                                             />
                                         )}
                                         {/* season */}
                                         {item.season !== 'Unknown' && seasonIconMap[item.season] && (
-                                            <img
+                                            <TooltipIcon
                                                 src={seasonIconMap[item.season]}
                                                 alt={item.season}
-                                                title={item.season}
+                                                tooltip={`Popular in the ${item.season}`}
                                                 className="highlight-icon"
                                             />
                                         )}
                                         {/* production location */}
                                         {item.prodCity && item.prodCountry && (
 
-                                            <img
+                                            <TooltipIcon
                                                 src={
                                                     // same city => locally
                                                     item.prodCity === businessCity ? locallyIcon :
@@ -377,28 +480,45 @@ const ToAdd = () => {
                                                     item.prodCity === businessCity ? 'Locally Produced' :
                                                         (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Global')
                                                 }
-                                                title={
+                                                tooltip={
                                                     item.prodCity === businessCity ? 'Locally Produced' :
-                                                        (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Sourced Globally')
+                                                        (item.prodCountry === 'Belgium' ? 'Made in Belgium' : 'Globally Sourced')
                                                 }
                                                 className="location-icon"
                                             />
                                         )}
                                         {/* markeer alle items uit een onderbezet segment */}
                                         {missingCategories.has(item.category) && (
-                                            <img
+                                            <TooltipIcon
                                                 src={hotForYouIcon}
                                                 alt="Hot for You"
-                                                title="Hot for You"
+                                                tooltip="Hot for You"
                                                 className="highlight-icon"
                                             />
                                         )}
                                     </div>
-                                </div>
 
+                                </div>
+                                <button
+                                    className="add-button"
+                                    onClick={() => {
+                                        setSelectedItem({...item, id_product: item.id});
+                                        setModalPrice('');
+                                    }}
+                                >
+                                    Add
+                                </button>
                             </li>
                         ))}
                     </ul>
+                    <PriceModal
+                        item={selectedItem}
+                        price={modalPrice}
+                        onChange={(e) => setModalPrice(e.target.value)}
+                        onClose={() => setSelectedItem(null)}
+                        onConfirm={() => handleAddToMenu(selectedItem, modalPrice)}
+                    />
+
                 </div>
             </div>
 

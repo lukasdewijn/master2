@@ -1,218 +1,121 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ToReprice.css';
 import Optionbar from "./Optionbar";
 import { segmentOptions, locationOptions, seasonOptions, highlightOptions } from './Icons/optionbarOptions';
-import pacman from './Icons/pacman.svg'
-import pricesens from './Icons/pricesensitivity.svg'
-import euro from './Icons/euro.svg'
+import pacman from './Icons/pacman.svg';
+import pricesens from './Icons/pricesensitivity.svg';
+import euro from './Icons/euro.svg';
+import axios from 'axios';
 
 const ToReprice = () => {
+    const [menuItems, setMenuItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const allItems = [
-        {
-            name: 'Bacardi cola',
-            currentPrice: 4.20,
-            optimalPrice: 4.50,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'high',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Gin tonic',
-            currentPrice: 5.80,
-            optimalPrice: 5.10,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'high',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Mojito',
-            currentPrice: 6.30,
-            optimalPrice: 6.00,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Pina colada',
-            currentPrice: 5.50,
-            optimalPrice: 5.10,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Tequila sunrise',
-            currentPrice: 6.00,
-            optimalPrice: 5.80,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'high',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Caipirinha',
-            currentPrice: 6.40,
-            optimalPrice: 6.00,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Cosmopolitan',
-            currentPrice: 6.90,
-            optimalPrice: 6.50,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Bloody Mary',
-            currentPrice: 5.20,
-            optimalPrice: 5.10,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'high',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Mai Tai',
-            currentPrice: 5.80,
-            optimalPrice: 5.50,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Dark and Stormy',
-            currentPrice: 6.20,
-            optimalPrice: 6.00,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'high',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Screwdriver',
-            currentPrice: 4.80,
-            optimalPrice: 5.00,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'high',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'laag'
-        },
-        {
-            name: 'Blue Lagoon',
-            currentPrice: 5.00,
-            optimalPrice: 5.20,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'laag'
-        },
-        {
-            name: 'Old Fashioned',
-            currentPrice: 7.00,
-            optimalPrice: 6.50,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Manhattan',
-            currentPrice: 7.50,
-            optimalPrice: 7.00,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'high',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Negroni',
-            currentPrice: 6.80,
-            optimalPrice: 6.50,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Cuba Libre',
-            currentPrice: 5.90,
-            optimalPrice: 5.60,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'high',
-            priceSensitivity: 'low',
-            jouwPrijsIs: 'hoog'
-        },
-        {
-            name: 'Tom Collins',
-            currentPrice: 5.60,
-            optimalPrice: 5.30,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'low',
-            priceSensitivity: 'medium',
-            jouwPrijsIs: 'goed'
-        },
-        {
-            name: 'Sidecar',
-            currentPrice: 7.20,
-            optimalPrice: 6.80,
-            minPrice: 4.00,
-            maxPrice: 8.00,
-            cannibalisationRisk: 'medium',
-            priceSensitivity: 'high',
-            jouwPrijsIs: 'hoog'
+    const bepaalPrijsOordeel = (item) => {
+        const { currentPrice, minPrice, lowPrice, highPrice, maxPrice } = item;
+
+        if (currentPrice < minPrice) return { label: "laag", kleur: "#d32f2f" };
+        if (currentPrice < lowPrice) return { label: "laag", kleur: "#e69e6a" };
+        if (currentPrice <= highPrice) return { label: "goed", kleur: "#388e3c" };
+        if (currentPrice <= maxPrice) return { label: "hoog", kleur: "#e69e6a" };
+        return { label: "hoog", kleur: "#d32f2f" };
+    };
+
+    useEffect(() => {
+        const fetchAll = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL || 'http://localhost:3007'}/api/menu-items`,
+                    { withCredentials: true }
+                );
+
+                const mapped = res.data.map((i) => {
+                    const currentPrice = i.price;
+                    const minPrice = i.floor_price;
+                    const maxPrice = i.ceiling_price;
+                    const lowPrice = i.low_price;
+                    const highPrice = i.high_price;
+
+                    const oordeel = bepaalPrijsOordeel({
+                        currentPrice,
+                        minPrice,
+                        lowPrice,
+                        highPrice,
+                        maxPrice
+                    });
+
+                    return {
+                        id_menu_item: i.id_menu_item,
+                        name: i.item_name,
+                        currentPrice,
+                        minPrice,
+                        maxPrice,
+                        highPrice,
+                        lowPrice,
+                        optimalPrice: (lowPrice + highPrice) / 2,
+                        cannibalisationRisk: 'medium',
+                        priceSensitivity: 'medium',
+                        jouwPrijsIs: oordeel.label,
+                        jouwPrijsKleur: oordeel.kleur
+                    };
+                });
+
+                setMenuItems(mapped);
+            } catch (err) {
+                console.error(err);
+                setError('Kon data niet laden');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAll();
+    }, []);
+
+    const handleSetOptimalPrice = async () => {
+        if (!selectedItem?.id_menu_item) return;
+
+        const updatedPrice = Number(((selectedItem.lowPrice + selectedItem.highPrice) / 2).toFixed(2));
+
+        try {
+            const res = await fetch('http://localhost:3007/api/menu-items', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    updates: [{
+                        id_menu_item: selectedItem.id_menu_item,
+                        price: updatedPrice
+                    }]
+                })
+            });
+
+            if (!res.ok) throw new Error('Fout bij updaten');
+
+            // Update frontend state
+            const updated = [...menuItems];
+            updated[selectedIndex].currentPrice = updatedPrice;
+            const oordeel = bepaalPrijsOordeel(updated[selectedIndex]);
+            updated[selectedIndex].jouwPrijsIs = oordeel.label;
+            updated[selectedIndex].jouwPrijsKleur = oordeel.kleur;
+            setMenuItems(updated);
+        } catch (err) {
+            alert('Fout bij het updaten van de prijs.');
+            console.error(err);
         }
-    ];
+    };
+
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('top'); // "top" or "worst"
+    const [sortOrder, setSortOrder] = useState('top');
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-
-    // Sort items based on sortOrder
-    const sortedItems = [...allItems].sort((a, b) => {
-        if (sortOrder === 'top') {
-            return b.count - a.count; // Descending order
-        } else {
-            return a.count - b.count; // Ascending order
-        }
-    });
-
-    // Filter items based on searchTerm
-    const filteredItems = sortedItems.filter((item) =>
+    const filteredItems = menuItems.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    // Define price breakpoints
-    const priceRanges = [4, 4.5, 5.1, 6, 6.5, 8];
-    // Compute relative weights based on range widths
 
     const segmentClasses = [
         'segment--low',
@@ -221,47 +124,43 @@ const ToReprice = () => {
         'segment--above-optimal',
         'segment--high'
     ];
-    const selectedItem = filteredItems[selectedIndex] || {};
-    // Example current price
-    const currentPrice = selectedItem.currentPrice?.toFixed(2);
-    const optimalPrice = selectedItem.optimalPrice?.toFixed(2);
-    const minPrice = optimalPrice*0.35;
-    const maxPrice = optimalPrice*2;
-    const thresholds = [minPrice.toFixed(2), (optimalPrice*0.5).toFixed(2), (optimalPrice*0.7).toFixed(2),(optimalPrice*1.25).toFixed(2), (optimalPrice*1.5).toFixed(2), optimalPrice*2];
-    const segmentWeights = thresholds.slice(1).map((end, idx) => end - thresholds[idx]);
-    const positionPercentCurrent = ((currentPrice - minPrice) / (maxPrice - minPrice)) * 100;
-    const positionPercentOptimal = ((optimalPrice - minPrice) / (maxPrice - minPrice)) * 100;
-    // helper to compute percent
-    const toPct = p => ((p - minPrice) / (maxPrice - minPrice)) * 100;
 
-    // dynamic levels only
-    const indicatorLevels = {
-        cannibalism: 'High',
-        priceSensitivity: 'Medium',
-        yourPrice: 'Low'
-    };
+    const selectedItem = filteredItems[selectedIndex] || {};
+
+    const currentPrice = selectedItem.currentPrice;
+    const lowPrice = selectedItem.lowPrice;
+    const highPrice = selectedItem.highPrice;
+    const optimalPrice = ((highPrice + lowPrice) / 2).toFixed(2);
+    const minPrice = selectedItem.minPrice;
+    const maxPrice = selectedItem.maxPrice;
+    const startBar = Math.min((minPrice * 0.9).toFixed(2),currentPrice);
+    const endBar = Math.max((maxPrice * 1.1).toFixed(2), currentPrice);
+    const thresholds = [startBar, minPrice, lowPrice, highPrice, maxPrice, endBar];
+    const segmentWeights = thresholds.slice(1).map((end, idx) => end - thresholds[idx]);
+    const positionPercentCurrent = ((currentPrice - startBar) / (endBar - startBar)) * 100;
+    const positionPercentOptimal = ((optimalPrice - startBar) / (endBar - startBar)) * 100;
+    const toPct = p => ((p - startBar) / (endBar - startBar)) * 100;
 
 
 
     return (
         <div className="to-reprice-container">
-
             <div className="centre-content">
-                {/* Segment Display */}
                 <div className="reprice-section">
-                    <h2 className="reprice-title">Price Elasticity</h2>
+                    <p className="reprice-title">
+                        {selectedItem.name ? selectedItem.name : "Selecteer een item"}
+                    </p>
+
                     <div className="price-bar-wrapper">
-                        {/* show a label at every boundary */}
                         {thresholds.map((t, i) => (
                             <div
                                 key={i}
-                                className={`price-threshold-label ${i === 0 || i === thresholds.length-1 ? 'end' : ''}`}
-                                style={{ left: `calc(${toPct(t)}% - 12px)` }}
+                                className={`price-threshold-label ${i === 0 || i === thresholds.length - 1 ? 'end' : ''}`}
+                                style={{left: `calc(${toPct(t)}% - 12px)`}}
                             >
                                 €{t}
                             </div>
                         ))}
-                        {/* Optimal price indicator */}
                         <div
                             className="price-indicator top"
                             style={{left: `calc(${positionPercentOptimal}% - 8px)`}}
@@ -270,7 +169,6 @@ const ToReprice = () => {
                             €{optimalPrice} best price
                         </div>
 
-                        {/* Price bar segments */}
                         <div className="price-bar">
                             {segmentWeights.map((w, idx) => (
                                 <div
@@ -281,7 +179,6 @@ const ToReprice = () => {
                             ))}
                         </div>
 
-                        {/* Current price indicator */}
                         <div
                             className="price-indicator bottom"
                             style={{left: `calc(${positionPercentCurrent}% - 8px)`}}
@@ -290,32 +187,64 @@ const ToReprice = () => {
                             €{currentPrice} current price
                         </div>
                     </div>
+
                     <div className="reprice-indicators">
-                        <div className="cannibalism">
-                            <img src={pacman} alt={`${pacman.label} icon`} className="pacman-icon"/>
-                            <div className="cannibalism-label"> Cannibalism</div>
-                            <div className="cannibalism-indicator"> {selectedItem.cannibalisationRisk} </div>
-                        </div>
-                        <div className="pricesens">
-                            <img src={pricesens} alt={`${pricesens.label} icon`} className="pricesens-icon"/>
-                            <div className="pricesens-label"> Price Sensitivity</div>
-                            <div className="pricesens-indicator"> {selectedItem.priceSensitivity} </div>
-                        </div>
-                        <div className="yourprice">
-                            <img src={euro} alt={`${euro.label} icon`} className="euro-icon"/>
-                            <div className="yourprice-label"> Your Price</div>
-                            <div className="yourprice-indicator"> {selectedItem.jouwPrijsIs} </div>
+                        <div className="tooltip-tr">
+                            <div className="cannibalism">
+                                <img src={pacman} alt="cannibalism icon" className="pacman-icon"/>
+                                <div className="cannibalism-label"> Cannibalism</div>
+                                <div className="cannibalism-indicator"> {selectedItem.cannibalisationRisk} </div>
+                            </div>
+                            <span className="tooltip-tr-text">
+                                When a product competes with another on your menu, causing reduced sales.
+                            </span>
                         </div>
 
+                        <div className="tooltip-tr">
+                            <div className="pricesens">
+                                <img src={pricesens} alt="price sensitivity icon" className="pricesens-icon"/>
+                                <div className="pricesens-label"> Price Sensitivity</div>
+                                <div className="pricesens-indicator"> {selectedItem.priceSensitivity} </div>
+                            </div>
+                            <span className="tooltip-tr-text">
+        How strongly customers react to changes in price — high means they care a lot.
+    </span>
+                        </div>
+
+                        <div className="tooltip-tr">
+                            <div className="yourprice">
+                                <img src={euro} alt="euro icon" className="euro-icon"/>
+                                <div className="yourprice-label"> Your Price</div>
+                                <div
+                                    className="yourprice-indicator"
+                                    style={{
+                                        backgroundColor: selectedItem.jouwPrijsKleur,
+                                        color: '#fff',
+                                        border: 'none'
+                                    }}
+                                >
+                                    {selectedItem.jouwPrijsIs}
+                                </div>
+                            </div>
+                            <span className="tooltip-tr-text">
+        Evaluation of your current price vs. the recommended range.
+    </span>
+                        </div>
 
                     </div>
+                    {selectedItem.name && (
+                        <button
+                            className="set-optimal-button"
+                            onClick={() => handleSetOptimalPrice(selectedItem, selectedIndex)}
+                        >
+                            Zet prijs op optimale waarde (€{optimalPrice})
+                        </button>
+                    )}
                 </div>
 
-                {/* Items List */}
                 <div className="reprice-items-section">
                     <div className="r-list-header">
                         <h2 className="header-title">To Reprice Items</h2>
-
                         <div className="r-search-bar">
                             <input
                                 type="text"
@@ -326,7 +255,7 @@ const ToReprice = () => {
                         </div>
                     </div>
                     <ul className="items-list">
-                        {filteredItems.map((item, idx) => (
+                    {filteredItems.map((item, idx) => (
                             <li
                                 key={item.name}
                                 className={`item ${selectedIndex === idx ? 'selected' : ''}`}
@@ -340,13 +269,24 @@ const ToReprice = () => {
                                     </div>
                                     <div className="lijst-pijl">&#8594;</div>
                                     <div className="lijst-nieuwe-prijs">
-                                        <div>€ {item.optimalPrice}</div>
+                                        <div>€ {item.optimalPrice.toFixed(2)}</div>
                                         <div>betere prijs</div>
                                     </div>
                                 </div>
                                 <div className="lijst-indicator">
                                     <div> Jouw prijs is </div>
-                                    <div> {item.jouwPrijsIs}</div>
+                                    <div
+                                        style={{
+                                            backgroundColor: item.jouwPrijsKleur,
+                                            color: '#fff',
+                                            padding: '0.5rem 1.5rem',
+                                            borderRadius: '1.5rem',
+                                            fontWeight: '700',
+                                            fontSize: '1rem'
+                                        }}
+                                    >
+                                        {item.jouwPrijsIs}
+                                    </div>
                                 </div>
                             </li>
                         ))}
