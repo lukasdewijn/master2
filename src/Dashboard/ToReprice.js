@@ -22,6 +22,38 @@ const ToReprice = () => {
         return { label: "hoog", kleur: "#d32f2f" };
     };
 
+    const berekenPriceSensitivity = (low, high, floor, ceiling) => {
+        const ratio = (high - low) / (ceiling - floor);
+
+        if (ratio >= 0.6) return { label: "low", kleur: "#388e3c" };      // groen
+        if (ratio >= 0.3) return { label: "medium", kleur: "#e69e6a" };   // oranje
+        return { label: "high", kleur: "#d32f2f" };                       // rood
+    };
+
+    const bepaalCannibalisationRisk = (cat, countsByCategory) => {
+        const actual = countsByCategory[cat] || 0;
+        const ideal = idealCounts[cat] || 1; // voorkom deling door 0
+        const ratio = actual / ideal;
+
+        if (ratio >= 1.2) return { label: 'high', kleur: '#d32f2f' };
+        if (ratio >= 0.9) return { label: 'medium', kleur: '#e69e6a' };
+        return { label: 'low', kleur: '#388e3c' };
+    };
+
+    const idealCounts = {
+        Beer:              11,
+        Cocktail:           8,
+        Coffee:             4,
+        Juices:             5,
+        Mocktails:          7,
+        'Soft Drinks':      6,
+        Spirits:            3,
+        'Sport/Energy Drinks': 4,
+        'Tea & Infusions':  5,
+        Wine:               4
+    };
+
+
     useEffect(() => {
         const fetchAll = async () => {
             try {
@@ -30,6 +62,16 @@ const ToReprice = () => {
                     { withCredentials: true }
                 );
 
+                // ✅ Stap 1: Tellen per categorie
+                const countsByCategory = {};
+                res.data.forEach(item => {
+                    if (!countsByCategory[item.category]) {
+                        countsByCategory[item.category] = 0;
+                    }
+                    countsByCategory[item.category]++;
+                });
+
+                // ✅ Stap 2: Mapping inclusief berekeningen
                 const mapped = res.data.map((i) => {
                     const currentPrice = i.price;
                     const minPrice = i.floor_price;
@@ -45,19 +87,25 @@ const ToReprice = () => {
                         maxPrice
                     });
 
+                    const sensitivity = berekenPriceSensitivity(lowPrice, highPrice, minPrice, maxPrice);
+                    const cannibal = bepaalCannibalisationRisk(i.category, countsByCategory);
+
                     return {
                         id_menu_item: i.id_menu_item,
                         name: i.item_name,
+                        category: i.category, // eventueel handig om te behouden
                         currentPrice,
                         minPrice,
                         maxPrice,
                         highPrice,
                         lowPrice,
                         optimalPrice: (lowPrice + highPrice) / 2,
-                        cannibalisationRisk: 'medium',
-                        priceSensitivity: 'medium',
+                        priceSensitivity: sensitivity.label,
+                        priceSensitivityColor: sensitivity.kleur,
                         jouwPrijsIs: oordeel.label,
-                        jouwPrijsKleur: oordeel.kleur
+                        jouwPrijsKleur: oordeel.kleur,
+                        cannibalisationRisk: cannibal.label,
+                        cannibalisationRiskColor: cannibal.kleur
                     };
                 });
 
@@ -72,6 +120,9 @@ const ToReprice = () => {
 
         fetchAll();
     }, []);
+
+
+
 
     const handleSetOptimalPrice = async () => {
         if (!selectedItem?.id_menu_item) return;
@@ -143,6 +194,8 @@ const ToReprice = () => {
 
 
 
+
+
     return (
         <div className="to-reprice-container">
             <div className="centre-content">
@@ -193,7 +246,17 @@ const ToReprice = () => {
                             <div className="cannibalism">
                                 <img src={pacman} alt="cannibalism icon" className="pacman-icon"/>
                                 <div className="cannibalism-label"> Cannibalism</div>
-                                <div className="cannibalism-indicator"> {selectedItem.cannibalisationRisk} </div>
+                                <div
+                                    className="cannibalism-indicator"
+                                    style={{
+                                        backgroundColor: selectedItem.cannibalisationRiskColor,
+                                        color: '#fff',
+                                        border: 'none'
+                                    }}
+                                >
+                                    {selectedItem.cannibalisationRisk}
+                                </div>
+
                             </div>
                             <span className="tooltip-tr-text">
                                 When a product competes with another on your menu, causing reduced sales.
@@ -204,12 +267,22 @@ const ToReprice = () => {
                             <div className="pricesens">
                                 <img src={pricesens} alt="price sensitivity icon" className="pricesens-icon"/>
                                 <div className="pricesens-label"> Price Sensitivity</div>
-                                <div className="pricesens-indicator"> {selectedItem.priceSensitivity} </div>
+                                <div
+                                    className="pricesens-indicator"
+                                    style={{
+                                        backgroundColor: selectedItem.priceSensitivityColor,
+                                        color: '#fff',
+                                        border: 'none'
+                                    }}
+                                >
+                                    {selectedItem.priceSensitivity}
+                                </div>
                             </div>
                             <span className="tooltip-tr-text">
-        How strongly customers react to changes in price — high means they care a lot.
-    </span>
+                                How strongly customers react to changes in price — high means they care a lot.
+                            </span>
                         </div>
+
 
                         <div className="tooltip-tr">
                             <div className="yourprice">
@@ -246,7 +319,7 @@ const ToReprice = () => {
                     <div className="r-list-header">
                         <h2 className="header-title">To Reprice Items</h2>
                         <div className="r-search-bar">
-                            <input
+                        <input
                                 type="text"
                                 placeholder="Search"
                                 value={searchTerm}
