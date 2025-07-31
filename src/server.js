@@ -687,3 +687,168 @@ app.post('/api/describe-item', async (req, res) => {
     }
 });
 
+app.get('/api/sales/last-90-days', isAuthenticated, async (req, res) => {
+    const businessId = req.session.user.id;
+
+    try {
+        const { data: mItems, error } = await supabase
+            .from('menu_items')
+            .select(`
+                id_menu_item,
+                price,
+                created_at,
+                products!inner(
+                    name,
+                    brand,
+                    categories!inner(category_name)
+                ),
+                sales(sold_at)
+            `)
+            .eq('business_id', businessId);
+
+        if (error) {
+            console.error('Supabase fetch error (last-90-days):', error);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        // Zoek laatste verkoopdatum
+        const allDates = mItems.flatMap(mi => mi.sales.map(s => new Date(s.sold_at)));
+        const latestDate = new Date(Math.max(...allDates));
+        const cutoffDate = new Date(latestDate);
+        cutoffDate.setDate(cutoffDate.getDate() - 90);
+
+        const results = mItems.map(mi => {
+            const category = mi.products.categories?.category_name || '';
+            const salesCount = mi.sales.filter(s => {
+                const date = new Date(s.sold_at);
+                return date >= cutoffDate && date <= latestDate;
+            }).length;
+
+            return {
+                id_menu_item: mi.id_menu_item,
+                name:         mi.products.name,
+                brand:        mi.products.brand,
+                category,
+                total_sold:   salesCount
+            };
+        });
+
+        res.json(results);
+    } catch (err) {
+        console.error('Unexpected error in /api/sales/last-90-days:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+app.get('/api/sales/growth', isAuthenticated, async (req, res) => {
+    const businessId = req.session.user.id;
+
+    try {
+        const { data: mItems, error } = await supabase
+            .from('menu_items')
+            .select(`
+                id_menu_item,
+                price,
+                products!inner(name, brand),
+                sales(sold_at)
+            `)
+            .eq('business_id', businessId);
+
+        if (error) {
+            console.error('Supabase fetch error (growth):', error);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        const stats = mItems.map(mi => {
+            const sales2025 = mi.sales.filter(s =>
+                s.sold_at >= '2025-01-01' && s.sold_at <= '2025-12-31'
+            ).length;
+
+            const sales2024 = mi.sales.filter(s =>
+                s.sold_at >= '2024-01-01' && s.sold_at <= '2024-12-31'
+            ).length;
+
+            const diff = sales2025 - sales2024;
+            const pct = sales2024 === 0 ? (sales2025 > 0 ? 100 : 0) : ((diff / sales2024) * 100);
+
+            return {
+                id_menu_item: mi.id_menu_item,
+                name: mi.products.name,
+                brand: mi.products.brand,
+                sold_2025: sales2025,
+                sold_2024: sales2024,
+                growth_abs: diff,
+                growth_pct: pct.toFixed(1)
+            };
+        });
+
+        res.json(stats);
+    } catch (err) {
+        console.error('Unexpected error in /api/sales/growth:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/api/price-comparison', isAuthenticated, async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+
+        // 1. Haal alle menu items van de huidige zaak op
+        const { data: ownItems, error: ownError } = await supabase
+            .from('menu_items')
+            .select('product_id, price, products(name)')
+            .eq('business_id', userId);
+
+        if (ownError) throw ownError;
+
+        // 2. Haal alle menu items van andere zaken op
+        const { data: others, error: othersError } = await supabase
+            .from('menu_items')
+            .select('product_id, price')
+            .neq('business_id', userId);
+
+        if (othersError) throw othersError;
+
+        // 3. Bereken gemiddelde prijs per product_id in JS
+        const avgByProduct = {};
+        const countByProduct = {};
+
+        others.forEach(({ product_id, price }) => {
+            if (!avgByProduct[product_id]) {
+                avgByProduct[product_id] = 0;
+                countByProduct[product_id] = 0;
+            }
+            avgByProduct[product_id] += price;
+            countByProduct[product_id] += 1;
+        });
+
+        // 4. Maak array met vergelijking
+        const comparisons = ownItems
+            .map(({ product_id, price, products }) => {
+                const avg = avgByProduct[product_id] / countByProduct[product_id];
+                if (!avg) return null; // geen data bij andere zaken
+
+                const diff = (price - avg);
+                return {
+                    name: products?.name || 'Onbekend product',
+                    price: price.toFixed(2),
+                    avg_price: avg.toFixed(2),
+                    difference: diff,
+                    comparison: diff >= 0
+                        ? `+ €${diff.toFixed(2).replace('.', ',')}`
+                        : `- €${Math.abs(diff).toFixed(2).replace('.', ',')}`
+                };
+            })
+            .filter(Boolean);
+
+        // 5. Sorteer op verschil
+        const sorted = comparisons.sort((a, b) => Math.abs(b.difference) - Math.abs(a.difference));
+
+        res.json(sorted.slice(0, 10)); // top 10 verschillen
+    } catch (err) {
+        console.error("Serverfout /api/price-comparison:", err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+

@@ -1,34 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PrijsVergelijking.css';
-import wrappedData from './wrappedData.json';
+import axios from 'axios';
 
 const PrijsVergelijking = () => {
-    // Haal de data voor wrapped7 uit de JSON
-    const data = wrappedData.wrapped7;
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
 
-    // Controleer of data correct is geladen
-    if (!data || !data.items) {
-        console.error("Data ontbreekt of is ongeldig:", data);
-        return <h1>Geen data beschikbaar voor Prijs Vergelijking</h1>;
-    }
+    useEffect(() => {
+        axios.get('http://localhost:3007/api/price-comparison', { withCredentials: true })
+            .then(res => {
+                setData({
+                    title: "Prijsvergelijking",
+                    subtitle: "Hoe verhouden jouw prijzen zich tot het gemiddelde",
+                    items: res.data
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                setError("Kon prijsvergelijking niet laden");
+            });
+    }, []);
 
-    // Gebruik de data uit de JSON
+
+    if (error) return <h1>{error}</h1>;
+    if (!data || !data.items) return <p>Loading…</p>;
+
     const { title, subtitle, items } = data;
 
-    // Beperk het aantal items tot maximaal 10
-    const limitedItems = items.slice(0, 10);
-
-    // Array met kleurklassen
     const colorClasses = [
-        "prijs-vergelijken-item-1", // Sandy brown
-        "prijs-vergelijken-item-2", // Ivory
-        "prijs-vergelijken-item-3", // Light cyan
-        "prijs-vergelijken-item-4", // Jordy blue
-        "prijs-vergelijken-item-5"  // Bice blue
+        "prijs-vergelijken-item-1",
+        "prijs-vergelijken-item-2",
+        "prijs-vergelijken-item-3",
+        "prijs-vergelijken-item-4",
+        "prijs-vergelijken-item-5"
     ];
 
     const generateDescription = (comparison) => {
-        const amount = comparison.match(/[+-]?\s?€\d+,\d+/); // Extract "+ €0,30" or "- €0,20"
+        const amount = comparison.match(/[+-]?\s?€\d+,\d+/);
         if (!amount) return null;
 
         if (comparison.includes("+")) {
@@ -44,18 +52,15 @@ const PrijsVergelijking = () => {
                 <h1 className="prijs-vergelijken-title">{title}</h1>
                 <p className="prijs-vergelijken-subtitle">{subtitle}</p>
                 <div className="prijs-vergelijken-items-container">
-                    {limitedItems.map((item, index) => (
+                    {items.map((item, index) => (
                         <div
                             key={index}
-                            className={`prijs-vergelijken-item ${
-                                colorClasses[index % colorClasses.length] // Herhaal kleuren
-                            }`}
+                            className={`prijs-vergelijken-item ${colorClasses[index % colorClasses.length]}`}
                         >
                             <div className="prijs-vergelijken-item-content">
                                 <span className="prijs-vergelijken-item-name">{item.name}</span>
                                 <span className="prijs-vergelijken-comparison">{item.comparison}</span>
                             </div>
-                            {/* Beschrijving alleen voor het eerste item */}
                             {index === 0 && (
                                 <p className="prijs-vergelijken-description">
                                     {generateDescription(item.comparison)}
@@ -65,9 +70,7 @@ const PrijsVergelijking = () => {
                     ))}
                     <br/><br/><br/><br/>
                 </div>
-
             </div>
-
         </div>
     );
 };

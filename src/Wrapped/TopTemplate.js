@@ -21,9 +21,8 @@ const TopTemplate = ({
                             <div key={index} className={`item-${index + 1}`}>
                                 <span className="item-name">{item.name}</span>
                                 {/* Alleen 'verkocht' tonen als de titel niet 'Stijgers' is */}
-                                <span className="item-sales">
-                                    {item.sales} {topTitle !== "Stijgers" && "verkocht"}
-                                </span>
+                                {item.extra && <span className="item-sales">{item.extra}</span>}
+
                             </div>
                         ))
                     ) : (
@@ -42,9 +41,8 @@ const TopTemplate = ({
                             bottomItems.map((item, index) => (
                                 <div key={index} className={`bottom-item item-${index + 1}`}>
                                     <span className="item-name">{item.name}</span>
-                                    <span className="item-sales">
-                                        {item.sales} {topTitle !== "Stijgers" && "verkocht"}
-                                    </span>
+                                    {item.extra && <span className="item-sales">{item.extra}</span>}
+
                                 </div>
                             ))
                         ) : (

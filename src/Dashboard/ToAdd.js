@@ -312,6 +312,8 @@ const ToAdd = () => {
                 season: i.season,
                 prodCity: i.prodCity,
                 prodCountry: i.prodCountry,
+                recommendedPrice: (i.low_price && i.high_price) ? (i.low_price + i.high_price) / 2 : null,
+
 
             }));
             setItems(mapped);
