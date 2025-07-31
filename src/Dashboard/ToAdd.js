@@ -296,6 +296,9 @@ const ToAdd = () => {
                 { withCredentials: true }
             );
 
+            localStorage.removeItem("wrapped_hot_items");
+            localStorage.removeItem("wrapped_next_season");
+
             // Refresh items
             const res = await axios.get('http://localhost:3007/api/items-not-on-menu', { withCredentials: true });
             const mapped = res.data.map(i => ({

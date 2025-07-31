@@ -263,7 +263,7 @@ app.get('/api/products', isAuthenticated, async (req, res) => {
     try {
         const { data, error } = await supabase
             .from('products')
-            .select('id_product, name, brand, id_category, id_subcategory')
+            .select('id_product, name, brand, id_category, id_subcategory, low_price, high_price')
             .order('name', { ascending: true })
 
         if (error) {
@@ -640,3 +640,50 @@ app.get('/api/menu-counts', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+const OpenAI = require('openai');
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
+
+app.post('/api/describe-item', async (req, res) => {
+    const { items } = req.body;
+
+    if (!Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: "Missing items array" });
+    }
+
+    try {
+        // Bouw één gecombineerde prompt
+        const prompt = `Geef een aantrekkelijke en korte beschrijving (max 12 woorden) van elk van de volgende drankjes voor op een menukaart:\n\n` +
+            items.map((item, idx) =>
+                `${idx + 1}. ${item.name} (${item.category})`
+            ).join('\n');
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: prompt }],
+            max_tokens: 150,
+            temperature: 0.7,
+        });
+
+        const text = response.choices[0]?.message?.content?.trim();
+
+        // Probeer op te splitsen in aparte regels
+        const lines = text.split('\n').filter(Boolean);
+        const descriptions = lines.map(line => line.replace(/^\d+\.\s*/, ''));
+
+        // Koppel terug aan de originele items
+        const result = items.map((item, idx) => ({
+            name: item.name,
+            description: descriptions[idx] || `Een ${item.category.toLowerCase()} die je menu verrijkt.`
+        }));
+
+        res.json({ result });
+    } catch (err) {
+        console.error("AI-generatie mislukt:", err.message);
+        res.status(500).json({ error: "AI-generatie mislukt" });
+    }
+});
+

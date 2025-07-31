@@ -17,14 +17,14 @@
 /* Title styling */
 .hot-title-container {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     padding: 1rem;
     color: var(--ivory);
 }
 
 .hot-title-container h1 {
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
     color: var(--ivory)
 }
 
@@ -38,7 +38,7 @@
     background-color: var(--ivory);
     color: var(--oxford-blue);
     width: 90%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding: 1.5rem;
     padding-left: 0rem;
     border-radius: 0 1rem 1rem 0;

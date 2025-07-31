@@ -30,7 +30,12 @@ const Menu = () => {
                     axios.get('http://localhost:3007/api/products',      { withCredentials: true })
                 ]);
                 setMenuItems(menuRes.data);
-                setProductsList(prodRes.data);
+                const mappedProducts = prodRes.data.map(p => ({
+                    ...p,
+                    recommendedPrice: (p.low_price && p.high_price) ? (p.low_price + p.high_price) / 2 : null
+                }));
+                setProductsList(mappedProducts);
+
             } catch (err) {
                 console.error(err);
                 setError('Kon data niet laden');
@@ -120,6 +125,8 @@ const Menu = () => {
                 },
                 { withCredentials: true }
             );
+            localStorage.removeItem("wrapped_hot_items");
+            localStorage.removeItem("wrapped_next_season");
             const res = await axios.get('http://localhost:3007/api/menu-items', { withCredentials: true });
             setMenuItems(res.data);
             setNewItem({ productId:'', name:'', brand:'', price:'' });
@@ -179,6 +186,7 @@ const Menu = () => {
                         }}
                         required
                     />
+
                     <datalist id="products-dl">  {productsList.map(p => (
                         <option
                             key={p.id_product}
@@ -204,6 +212,12 @@ const Menu = () => {
                         onChange={e => setNewItem(ni => ({...ni, price: e.target.value}))}
                         required
                     />
+
+                    {newItem.productId && (
+                        <p className="recommended-price">
+                            (Aanbevolen prijs: €{(productsList.find(p => p.id_product === newItem.productId)?.recommendedPrice ?? 'n/a')?.toFixed?.(2)})
+                        </p>
+                    )}
 
                     <button type="submit" className="add-btn">
                         Voeg toe

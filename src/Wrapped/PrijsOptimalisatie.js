@@ -1,30 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PrijsOptimalisatie.css';
-import wrappedData from './wrappedData.json';
+import axios from 'axios';
 
 const PrijsOptimalisatie = () => {
-    // Haal de data voor wrapped6 uit de JSON
-    const data = wrappedData.wrapped6;
+    const [items, setItems] = useState([]);
+    const title = "Prijs Optimalisatie";
+    const subtitle = "Wij raden aan deze prijzen aan te passen";
 
-    // Controleer of data correct is geladen
-    if (!data || !data.items) {
-        console.error("Data ontbreekt of is ongeldig:", data);
-        return <h1>Geen data beschikbaar voor Prijs Optimalisatie</h1>;
-    }
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL || 'http://localhost:3007'}/api/menu-items`,
+                    { withCredentials: true }
+                );
 
-    // Gebruik de data uit de JSON
-    const { title, subtitle, items } = data;
+                const data = res.data.map(item => {
+                    const optimalPrice = (item.low_price + item.high_price) / 2;
+                    const priceDiff = optimalPrice - item.price;
 
-    // Beperk het aantal items tot maximaal 5
-    const limitedItems = items.slice(0, 5);
+                    return {
+                        name: item.item_name,
+                        currentPrice: item.price.toFixed(2),
+                        newPrice: optimalPrice.toFixed(2),
+                        extraPerMonth: `€${(priceDiff * item.monthly_sales || 20).toFixed(0)}`,
+                        priceDiffAbs: Math.abs(priceDiff),
+                    };
+                });
 
-    // Array met kleuren voor de items
+                const sorted = data
+                    .sort((a, b) => b.priceDiffAbs - a.priceDiffAbs)
+                    .slice(0, 5);
+
+                setItems(sorted);
+            } catch (err) {
+                console.error('Fout bij ophalen:', err);
+            }
+        };
+
+        fetchItems();
+    }, []);
+
     const colors = [
-        "prijs-optimalisatie-item-1", // Sandy brown
-        "prijs-optimalisatie-item-2", // Ivory
-        "prijs-optimalisatie-item-3", // Light cyan
-        "prijs-optimalisatie-item-4", // Jordy blue
-        "prijs-optimalisatie-item-5", // Bice blue
+        "prijs-optimalisatie-item-1",
+        "prijs-optimalisatie-item-2",
+        "prijs-optimalisatie-item-3",
+        "prijs-optimalisatie-item-4",
+        "prijs-optimalisatie-item-5",
     ];
 
     return (
@@ -33,7 +55,7 @@ const PrijsOptimalisatie = () => {
                 <h1 className="prijs-optimalisatie-title">{title}</h1>
                 <p className="prijs-optimalisatie-subtitle">{subtitle}</p>
                 <div className="prijs-optimalisatie-items-container">
-                    {limitedItems.map((item, index) => (
+                    {items.map((item, index) => (
                         <div
                             key={index}
                             className={`prijs-optimalisatie-item ${colors[index % colors.length]}`}
@@ -48,10 +70,6 @@ const PrijsOptimalisatie = () => {
                                 <div className="current-price-details">
                                     <span className="prijs-optimalisatie-new-price">{item.newPrice}</span>
                                     <p>Nieuwe prijs</p>
-                                </div>
-                                <div className="current-price-details">
-                                    <span className="prijs-optimalisatie-extra-per-month">{item.extraPerMonth}</span>
-                                    <p>Extra winst</p>
                                 </div>
                             </div>
                         </div>
