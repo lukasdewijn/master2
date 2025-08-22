@@ -1,0 +1,241 @@
+{
+  "wrapped1": {
+    "season": "Zomer"
+  },
+  "wrapped2": {
+    "topTitle": "Top Verkopers",
+    "topSubtitle": "De populairste dranken van je zaak.",
+    "topItems": [
+      { "name": "Stella Artois", "sales": 150 },
+      { "name": "Coca-Cola", "sales": 120 },
+      { "name": "Fanta", "sales": 80 },
+      { "name": "Sprite", "sales": 70 },
+      { "name": "Heineken", "sales": 60 }
+    ],
+    "bottomTitle": "Onderpresteerders",
+    "bottomSubtitle": "De minst populaire dranken van je zaak.",
+    "bottomItems": [
+      { "name": "Schweppes", "sales": 30 },
+      { "name": "Tonic Water", "sales": 25 },
+      { "name": "Root Beer", "sales": 20 },
+      { "name": "Energy Drink", "sales": 15 },
+      { "name": "Ginger Ale", "sales": 10 }
+    ]
+  },
+  "wrapped3": {
+    "topTitle": "Top Gerechten",
+    "topSubtitle": "De populairste gerechten van je zaak.",
+    "topItems": [
+      { "name": "Hamburger", "sales": 200 },
+      { "name": "Pasta Carbonara", "sales": 180 },
+      { "name": "Caesar Salad", "sales": 150 },
+      { "name": "Taco", "sales": 120 },
+      { "name": "Ribeye Steak", "sales": 100 }
+    ],
+    "bottomTitle": "Onderste Gerechten",
+    "bottomSubtitle": "De minst populaire gerechten van je zaak.",
+    "bottomItems": [
+      { "name": "Vegetarische Wrap", "sales": 20 },
+      { "name": "Quinoa Bowl", "sales": 15 },
+      { "name": "Zalm Tartaar", "sales": 10 },
+      { "name": "Soep van de Dag", "sales": 8 },
+      { "name": "Veggie Burger", "sales": 5 }
+    ]
+  },
+  "wrapped4": {
+    "topTitle": "Stijgers",
+    "topSubtitle": "Deze drank items verkochten meer dan vorig seizoen.",
+    "topItems": [
+      { "name": "Stella Artois", "sales": "+40%" },
+      { "name": "Coca-Cola", "sales": "+20%" },
+      { "name": "Fanta", "sales": "+15%" },
+      { "name": "Aperol Spritz", "sales": "+10%" },
+      { "name": "Schweppes", "sales": "+5%" }
+    ],
+    "bottomTitle": "Dalers",
+    "bottomSubtitle": "Deze drank items verkochten minder dan vorig seizoen.",
+    "bottomItems": [
+      { "name": "Heineken", "sales": "-5%" },
+      { "name": "Fanta Cherry", "sales": "-10%" },
+      { "name": "Red Bull", "sales": "-15%" },
+      { "name": "Choco melk", "sales": "-20%" },
+      { "name": "Sprite", "sales": "-40%" }
+    ]
+  },
+  "wrapped5": {
+  "topTitle": "Stijgers",
+  "topSubtitle": "Deze gerechten verkochten meer dan vorig seizoen",
+  "topItems": [
+    { "name": "Hamburger", "sales": "+30%" },
+    { "name": "Pasta Carbonara", "sales": "+25%" },
+    { "name": "Caesar Salad", "sales": "+20%" },
+    { "name": "Taco", "sales": "+15%" },
+    { "name": "Ribeye Steak", "sales": "+10%" }
+  ],
+  "bottomTitle": "Dalers",
+  "bottomSubtitle": "Deze gerechten verkochten minder dan vorig seizoen",
+  "bottomItems": [
+    { "name": "Quinoa Bowl", "sales": "-5%" },
+    { "name": "Zalm Tartaar", "sales": "-10%" },
+    { "name": "Soep van de Dag", "sales": "-15%" },
+    { "name": "Veggie Burger", "sales": "-20%" },
+    { "name": "Hummus Plate", "sales": "-25%" }
+  ]
+},
+  "wrapped6": {
+    "title": "Prijs Optimalisatie",
+    "subtitle": "Opgepast! De extra per maand is een schatting op basis van ons datamodel.",
+    "items": [
+      {
+        "name": "Stella Artois",
+        "currentPrice": "€2,40",
+        "newPrice": "€2,60",
+        "extraPerMonth": "€80"
+      },
+      {
+        "name": "Coca-Cola",
+        "currentPrice": "€2,20",
+        "newPrice": "€2,50",
+        "extraPerMonth": "€50"
+      },
+      {
+        "name": "Fanta",
+        "currentPrice": "€2,10",
+        "newPrice": "€2,40",
+        "extraPerMonth": "€40"
+      },
+      {
+        "name": "Sprite",
+        "currentPrice": "€2,00",
+        "newPrice": "€2,30",
+        "extraPerMonth": "€30"
+      },
+      {
+        "name": "Heineken",
+        "currentPrice": "€2,50",
+        "newPrice": "€2,70",
+        "extraPerMonth": "€25"
+      }
+    ]
+  },
+  "wrapped7": {
+    "title": "Prijsvergelijking",
+    "subtitle": "De prijs van je items vergelijken met de gemiddelde prijs van andere zaken.",
+    "items": [
+      {
+        "name": "Stella Artois",
+        "comparison": "+ €0,30",
+        "colorClass": "prijs-vergelijken-item-1"
+      },
+      {
+        "name": "Coca-Cola",
+        "comparison": "- €0,20",
+        "colorClass": "prijs-vergelijken-item-2"
+      },
+      {
+        "name": "Fanta",
+        "comparison": "+ €0,10",
+        "colorClass": "prijs-vergelijken-item-3"
+      },
+      {
+        "name": "Sprite",
+        "comparison": "- €0,15",
+        "colorClass": "prijs-vergelijken-item-4"
+      },
+      {
+        "name": "Heineken",
+        "comparison": "+ €0,05",
+        "colorClass": "prijs-vergelijken-item-5"
+      },
+      {
+        "name": "Root Beer",
+        "comparison": "- €0,10",
+        "colorClass": "prijs-vergelijken-item-6"
+      },
+      {
+        "name": "Energy Drink",
+        "comparison": "+ €0,15",
+        "colorClass": "prijs-vergelijken-item-7"
+      },
+      {
+        "name": "Ginger Ale",
+        "comparison": "- €0,05",
+        "colorClass": "prijs-vergelijken-item-8"
+      },
+      {
+        "name": "Tonic Water",
+        "comparison": "+ €0,20",
+        "colorClass": "prijs-vergelijken-item-9"
+      },
+      {
+        "name": "Water",
+        "comparison": "- €0,25",
+        "colorClass": "prijs-vergelijken-item-10"
+      }
+    ]
+  },"wrapped8": {
+  "title": "Specialiteiten in Beeld",
+  "subtitle": "Je specialiteit in vergelijking met andere zaken.",
+  "topItems": [
+    { "name": "Stella Artois" },
+    { "name": "Aperol Spritz" },
+    { "name": "Schweppes" }
+  ],
+  "bottomItems": [
+    { "name": "Heineken" },
+    { "name": "Fanta Cherry" },
+    { "name": "Sprite" }
+  ]
+},
+  "wrapped9": {
+  "title": "Hot For You",
+  "subtitle": "Aanbevolen items om toe te voegen aan jouw menu.",
+  "menuItems": [
+    {
+      "name": "Espresso Martini",
+      "description": "Een trendy drankje dat zowel koffieliefhebbers als cocktailfanaten aanspreekt."
+    },
+    {
+      "name": "Old Fashioned",
+      "description": "Een klassieke cocktail die populair is bij fijnproevers."
+    },
+    {
+      "name": "Negroni",
+      "description": "Een elegante en bitterzoete keuze voor liefhebbers van verfijnde smaken."
+    }
+  ]
+},
+  "wrapped10": {
+    "title": "Hot For Next Season",
+    "subtitle": "Items die volgend seizoen populair zullen zijn.",
+    "menuItems": [
+      {
+        "name": "Pumpkin Spice Latte",
+        "description": "Een seizoensfavoriet die klanten aantrekt in de herfst."
+      },
+      {
+        "name": "Frozen Mojito",
+        "description": "Een verfrissende keuze perfect voor de zomerhitte."
+      },
+      {
+        "name": "Hot Toddy",
+        "description": "Een warme, troostende drank ideaal voor koude winterdagen."
+      }
+    ]
+  },
+  "wrapped11": {
+    "title": "Categorieën",
+    "subtitle": "Je categorieën in vergelijking met andere zaken",
+    "categories": [
+      { "category": "Bier", "jouwZaak": 32, "gemiddeld": 28 },
+      { "category": "Frisdrank", "jouwZaak": 28, "gemiddeld": 30 },
+      { "category": "Cocktail", "jouwZaak": 20, "gemiddeld": 18 },
+      { "category": "Wijn", "jouwZaak": 25, "gemiddeld": 22 },
+      { "category": "Alcoholvrij bier", "jouwZaak": 10, "gemiddeld": 12 },
+      { "category": "Warme dranken", "jouwZaak": 12, "gemiddeld": 15 },
+      { "category": "Water", "jouwZaak": 8, "gemiddeld": 10 },
+      { "category": "Aperitief", "jouwZaak": 5, "gemiddeld": 7 },
+      { "category": "Mocktail", "jouwZaak": 3, "gemiddeld": 5 }
+    ]
+  }
+}

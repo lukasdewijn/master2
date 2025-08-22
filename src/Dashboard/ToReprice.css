@@ -1,0 +1,444 @@
+.to-reprice-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.centre-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    margin-right: 2rem;
+
+}
+
+.reprice-section, .reprice-items-section {
+    background-color: var(--ivory);
+    border-radius: 2rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reprice-section{
+    background-color: var(--ivory);
+    border-radius: 2rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.reprice-items-section .item.selected {
+    background-color: #FA954B30;
+}
+
+.reprice-title{
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.8rem;
+    margin: 0 0 4rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.segment-bars {
+    display: flex;
+    justify-content: space-around;
+}
+
+.segment-bar {
+    text-align: center;
+}
+
+.bar-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--sandy-brown);
+}
+
+.segment-button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.segment-button:hover {
+    background-color: var(--sandy-brown);
+}
+
+.reprice-items-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: calc(100vh - 6rem); /* Adjust the height dynamically */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 1.5rem; /* Space for the scrollbar */
+    background-color: var(--ivory); /* Background color */
+}
+
+/* Custom Scrollbar Styling */
+.items-list::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.items-list::-webkit-scrollbar-track {
+    background: var(--ivory); /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.items-list::-webkit-scrollbar-thumb {
+    background: #0E1C3622; /* Gradient color */
+
+    border-radius: 10px; /* Rounded corners */
+
+}
+
+.items-list::-webkit-scrollbar-thumb:hover {
+    background: #0E1C3655; /* Darker gradient on hover */
+}
+
+
+.r-list-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--oxford-blue);
+    font-weight: bold;
+}
+
+.header-title p {
+    color: var(--sandy-brown);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.r-section-order {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    margin-left: auto;
+    font-weight: lighter;
+}
+
+.r-section-order .order-button {
+    transition: color 0.05s ease, font-weight 0.05s ease;
+}
+
+.r-section-order .order-button:hover {
+    text-decoration: underline;
+    color: var(--sandy-brown);
+}
+
+.r-section-order .order-button.active {
+    color: var(--sandy-brown);
+    font-weight: bolder;
+}
+
+
+.items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.r-search-bar {
+    margin-left: auto;
+    margin-right: 4rem;
+    display: flex;
+    align-items: center;
+    background-color: #fde3d6; /* Light peach background */
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    width: 15rem; /* Adjust width */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.r-search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1rem;
+    color: #fa954b;
+    width: 100%;
+}
+
+.r-search-bar input::placeholder {
+    color: #fa954b;
+    opacity: 0.7;
+}
+
+.price-bar-wrapper {
+    position: relative;
+    width: 80%;        /* fixed total width */
+}
+
+.price-bar {
+    display: flex;
+    height: 1rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.price-bar .segment {
+    flex: 1;
+}
+
+/* Arrow indicator styling */
+.price-indicator.top {
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid var(--oxford-blue);
+}
+.price-indicator.top {
+    top: -1.5rem;
+    /* flip: use border-top instead of border-bottom */
+    border-bottom: none;
+    border-top: 25px solid var(--oxford-blue);
+}
+
+.price-indicator.bottom {
+    position: absolute;
+    top: 1rem;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 25px solid var(--oxford-blue);
+}
+
+/* Price labels above/below indicators */
+.price-label {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--oxford-blue);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.price-label.top {
+    top: -2.9rem; /* above the top arrow */
+    margin-left: 3rem;
+}
+
+.price-label.bottom {
+    bottom: -3rem; /* below the bottom arrow */
+    margin-left: 4rem;
+}
+
+/* Threshold labels at segment boundaries */
+.price-threshold-label {
+    position: absolute;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+    transform: translateX(-50%);
+    top: -20px;
+    pointer-events: none;
+    margin-left: 8px;
+}
+
+.segment--low { background: #d32f2f; }
+.segment--below-optimal { background: #e69e6a;}
+.segment--optimal { background: #388e3c; }
+.segment--above-optimal { background: #e69e6a; }
+.segment--high { background: #d32f2f; }
+
+.reprice-indicators{
+    display: flex;
+    margin-top: 4rem;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.pacman-icon{width: 80px; margin-bottom: 10px}
+.pricesens-icon{width: 80px;}
+.euro-icon{width: 60px; margin-bottom: 12px; margin-top: 5px}
+
+.cannibalism, .pricesens, .yourprice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bolder;
+}
+
+.cannibalism-indicator, .pricesens-indicator, .yourprice-indicator{
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 2rem;              /* space around the text */
+    margin-top: 1rem;
+    border: 2px solid var(--oxford-blue);
+    border-radius: 0.75rem;            /* round the corners */
+    background-color: var(--ivory);    /* optional fill */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+    width: 6rem
+}
+
+
+/* make the list itself full width & remove bullets */
+.reprice-items-section .items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* each item wrapper */
+.reprice-items-section .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ivory);
+    border: 2px solid var(--sandy-brown);
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* highlight selected item */
+.reprice-items-section .item.selected {
+    background: #fde3d6; /* light peach */
+}
+
+/* drink name on left */
+.reprice-items-section .item > span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--oxford-blue);
+    flex: 1;
+}
+
+.verandering-prijs {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    white-space: nowrap;
+}
+
+.lijst-jouw-prijs,
+.lijst-nieuwe-prijs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}
+.lijst-jouw-prijs div:first-child,
+.lijst-nieuwe-prijs div:first-child {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.lijst-pijl {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: var(--oxford-blue);
+}
+
+.lijst-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-left: 2rem;
+}
+
+.lijst-indicator div:first-child {
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}
+.lijst-indicator div:last-child {
+    background: var(--sandy-brown);
+    color: var(--ivory);
+    padding: 0.5rem 1.5rem;
+    border-radius: 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* responsive wrapping */
+@media (max-width: 800px) {
+    .reprice-items-section .item {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .reprice-items-section .verandering-prijs {
+        margin: 0;
+    }
+    .reprice-items-section .lijst-indicator {
+        margin-left: auto;
+    }
+}
+
+.reprice-title{
+    font-size: xxx-large;
+    font-weight: bolder;
+}
+
+.set-optimal-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #f2e3bb;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.20); /* ✨ subtle depth */
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.set-optimal-button:hover {
+    background-color: #fa954b;
+}
+
+.tooltip-tr {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-tr-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: var(--ivory);
+    color: #000;
+    text-align: left;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 10;
+    bottom: 100%; /* position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    border: 1px solid #ccc;
+
+}
+
+.tooltip-tr:hover .tooltip-tr-text {
+    visibility: visible;
+    opacity: 1;
+}

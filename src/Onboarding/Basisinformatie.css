@@ -1,0 +1,35 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+    column-gap: 1rem;
+    row-gap: 1rem;
+    /* Ensures rows only stretch to the content height */
+    align-items: start;
+
+    width: 100%;
+    margin: 0 auto;
+    padding: 10rem 10rem 0 10rem;
+}
+
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section label {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--oxford-blue);
+    margin-bottom: 0.5rem;
+}
+
+.form-section input {
+    padding: 0.8rem;
+    border: 0px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #F8D1AD; /* Light background for input */
+}

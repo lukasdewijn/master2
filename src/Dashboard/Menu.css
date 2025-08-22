@@ -1,0 +1,223 @@
+/* src/Menu.css */
+.menu-container {
+    padding: 2rem;
+    background: var(--ivory);
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: calc(100vh - 4rem);
+
+    padding-right: 1rem;
+}
+
+.menu-container h2 {
+    margin-top: 0;
+    color: var(--oxford-blue);
+}
+
+.menu-list-container{
+    overflow-y: auto;
+    padding-right: 0.75rem;
+}
+
+.menu-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menu-list-container::-webkit-scrollbar-track {
+    background: var(--ivory);
+    border-radius: 10px;
+}
+
+.menu-list-container::-webkit-scrollbar-thumb {
+    background: #0E1C3622;
+    border-radius: 10px;
+}
+
+.menu-list-container::-webkit-scrollbar-thumb:hover {
+    background: #0E1C3655;
+}
+
+/* Iedere categorie-sectie */
+.menu-section {
+    margin-top: 2rem;
+}
+
+.menu-category {
+    font-size: 1.5rem;
+    color: var(--sandy-brown);
+    border-bottom: 2px solid var(--sandy-brown);
+    padding-bottom: 0.25rem;
+}
+
+/* Lijst met items */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    font-weight: bold;
+    color: var(--oxford-blue);
+}
+
+.item-brand {
+    font-style: italic;
+    color: #555;
+    margin-left: 1rem;
+    flex: 1;
+}
+
+.item-price {
+    font-weight: bold;
+    color: var(--oxford-blue);
+}
+
+/* the “Edit” / “Confirm” button */
+.edit-save-btn {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    border: medium solid var(--sandy-brown);
+    border-radius: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+.edit-save-btn:hover {
+    opacity: 0.9;
+}
+
+.edit-cancel-btn {
+    background-color: var(--ivory);
+    border: medium solid var(--sandy-brown);
+    border-radius: 1rem;
+    color: #333;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+.edit-cancel-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* wrapper voor € + input */
+.price-input-wrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* klein €‐teken */
+.currency-symbol {
+    margin-right: 0.25rem;
+    color: var(--oxford-blue);
+    font-weight: bold;
+}
+
+/* het inputje zelf */
+.menu-item-input {
+    width: 3rem;       /* iets smaller, omdat je nu nog de € ernaast zet */
+    height: 1.75rem;   /* match met line-height als je wilt */
+    line-height: 1.75rem;
+    text-align: right;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 0 0.25rem;
+}
+
+/* verberg nog steeds de spin-knopjes */
+.menu-item-input::-webkit-outer-spin-button,
+.menu-item-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.menu-item-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* voeg onderaan toe */
+.delete-marker {
+    background: transparent;
+    border: none;
+    color: var(--sandy-brown);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+.delete-marker:hover {
+    color: red;
+}
+.price-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+.currency-symbol {
+    margin-right: 0.25rem;
+    color: var(--oxford-blue);
+}
+
+/* ───── Add-form horizontaal ───── */
+.add-form {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.add-form input {
+    padding: 0.5rem 0.75rem;
+    width: 6rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background: var(--ivory);
+    font-size: 1rem;
+    color: var(--oxford-blue);
+}
+
+.add-form input[list] {
+    min-width: 12rem;
+}
+
+.add-btn {
+    padding: 0.5rem 1rem;
+    background: var(--sandy-brown);
+    color: var(--ivory);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.add-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* Styling van de Voeg toe knop */
+.add-btn {
+    padding: 0.5rem 1rem;
+    background: var(--sandy-brown);
+    color: var(--ivory);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.add-btn:hover {
+    opacity: 0.9;
+}

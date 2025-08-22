@@ -1,0 +1,146 @@
+/* Ensure the body and html take full height and width */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 50rem;
+    background-color: var(--oxford-blue); /* Blue background */
+    color: var(--ivory);
+}
+
+/* Main container */
+.top-template-container {
+    width: 50rem;
+    background-color: var(--oxford-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2rem;
+    border: thick solid var(--sandy-brown);
+}
+
+.section {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* Section titles */
+.toptemp-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: var(--ivory);
+}
+
+.toptemp-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: var(--ivory);
+}
+
+/* List of items */
+.item-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Shared styling for items */
+.item-1, .item-2, .item-3, .item-4, .item-5 {
+    padding: 0.8rem;
+    border-radius: 0 12px 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Top item-specific styling */
+.item-1 {
+    background-color: var(--sandy-brown);
+    margin-right: 1rem;
+    color: var(--ivory);
+}
+
+.item-2 {
+    background-color: var(--ivory);
+    margin-right: 1.75rem;
+    color: var(--oxford-blue);
+}
+
+.item-3 {
+    background-color: var(--light-cyan);
+    margin-right: 2.5rem;
+    color: var(--oxford-blue);
+}
+
+.item-4 {
+    background-color: var(--jordy-blue);
+    margin-right: 3.25rem;
+    color: var(--oxford-blue);
+}
+
+.item-5 {
+    background-color: var(--bice-blue);
+    margin-right: 4rem;
+    color: var(--ivory);
+}
+
+/* Main container */
+.bottom-template-container {
+    padding: 0 0 0 0;
+    width: 100%;
+    background-color: var(--oxford-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Bottom items override styling */
+.bottom-item {
+    border-radius: 12px 0 0 12px; /* Invert the border radius */
+    margin-right: 0;
+}
+
+/* Specific bottom-item background colors */
+.bottom-item.item-1 {
+    background-color: var(--bice-blue); /* Inverted top-item colors */
+    margin-left: 1rem;
+}
+
+.bottom-item.item-2 {
+    background-color: var(--jordy-blue);
+    margin-left: 1.75rem;
+}
+
+.bottom-item.item-3 {
+    background-color: var(--light-cyan);
+    margin-left: 2.5rem;
+}
+
+.bottom-item.item-4 {
+    background-color: var(--ivory);
+    margin-left: 3.25rem;
+    color: var(--oxford-blue);
+}
+
+.bottom-item.item-5 {
+    background-color: var(--sandy-brown);
+    margin-left: 4rem;
+    color: var(--ivory);
+}
+
+
+.item-name {
+    font-size: 1rem;
+}
+
+.item-sales {
+    font-size: 1rem;
+    font-weight: bold;
+}

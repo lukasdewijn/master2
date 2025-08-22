@@ -1,0 +1,53 @@
+/* TypeHoreca.css */
+
+.type-horeca-container {
+    padding: 2.5rem 10rem 0 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--oxford-blue);
+}
+
+.type-horeca-container h2 {
+    font-size: 24px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+    color: var(--oxford-blue);
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four equal-width columns */
+    gap: 1.5rem;
+    width: 100%;
+    justify-items: center;
+}
+
+.option-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem; /* Ensures all buttons have the same width */
+    height: 6rem; /* Fixed height for uniform button size */
+    background-color: #F9D8B4; /* Light peach color */
+    border: none;
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-button.selected {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.option-button:hover {
+    background-color: #f4b183; /* Slightly darker peach on hover */
+}

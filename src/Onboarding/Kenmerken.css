@@ -1,0 +1,57 @@
+.kenmerken-container{
+    padding: 1rem 5rem 0 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--oxford-blue);
+}
+
+.kenmerken-groepen {
+    display: grid;
+    gap: 1.2rem;
+    color: var(--oxford-blue);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.category-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align titles to the left */
+    width: 100%;
+}
+
+.category-section h2 {
+    margin-bottom: 0.3rem;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    max-width: 100%; /* Prevent overflow */
+}
+
+.option-button-kenmerken {
+    padding: 0.5rem 1rem;
+    background-color: #F8D1AD;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-button-kenmerken.selected {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.05);
+}
+
+.option-button-kenmerken:hover {
+    background-color: #f4b183;
+}
+

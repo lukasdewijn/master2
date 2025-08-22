@@ -1,0 +1,47 @@
+.layout-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Ensure the Sidebar takes up the proper width */
+.sidebar {
+    flex-shrink: 0;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+
+    overflow-y: auto;
+}
+
+/* Filter Bar Styling */
+.filter-bar {
+    width: 250px;
+    background-color: var(--jordy-blue);
+    color: var(--ivory);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.filter-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.filter-options {
+    list-style: none;
+    padding: 0;
+}
+
+.filter-options li {
+    margin-bottom: 0.5rem;
+}
+
+.filter-options input[type="checkbox"] {
+    margin-right: 0.5rem;
+}

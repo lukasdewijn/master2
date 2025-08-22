@@ -1,0 +1,90 @@
+/* Optionbar.css */
+.optionbar-container {
+    background-color: var(--ivory);
+    padding: 1.5rem;
+    padding-right: 0.4rem;
+    border-radius: 2rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 25rem;
+    /* Make container fill viewport minus header/nav offsets */
+    max-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.optionbar-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--sandy-brown);
+    margin-bottom: 1rem;
+    flex: 0 0 auto;
+}
+
+.optionbar-scrollable {
+    /* Fill remaining height */
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.optionbar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--oxford-blue);
+    margin-bottom: 0.5rem;
+}
+
+.option-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--oxford-blue);
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--oxford-blue);
+    cursor: pointer;
+}
+
+.option-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.optionbar-divider {
+    margin: 0.8rem 0;
+    border: none;
+    height: 1px;
+    background-color: var(--sandy-brown);
+}
+
+/* Custom Scrollbar Styling for Scrollable Options */
+.optionbar-scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.optionbar-scrollable::-webkit-scrollbar-track {
+    background: var(--ivory);
+    border-radius: 10px;
+}
+
+.optionbar-scrollable::-webkit-scrollbar-thumb {
+    background: #0E1C3622;
+    border-radius: 10px;
+}
+
+.optionbar-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #0E1C3655;
+}

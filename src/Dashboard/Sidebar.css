@@ -1,0 +1,53 @@
+/* Sidebar.css */
+.sidebar {
+    width: 15rem;
+    background-color: var(--ivory);
+    color: var(--sandy-brown);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 2rem;
+    margin: 2rem 0 2rem 2rem;
+}
+
+.sidebar-header {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-list-item {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-list-item:hover {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+}
+
+.sidebar-list-item.active {
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+}
+
+.sidebar-footer {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: auto;
+}

@@ -1,0 +1,92 @@
+.clientele-analysis-container {
+    padding: 2rem 1rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    color: var(--oxford-blue);
+}
+
+.clientele-analysis-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--oxford-blue);
+}
+
+.clientele-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    gap: 1.5rem 2rem; /* Space between rows and columns */
+    width: 100%;
+    max-width: 800px;
+}
+
+.clientele-persona-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.clientele-persona-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.clientele-persona-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.clientele-persona-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--oxford-blue);
+    text-align: left;
+}
+
+.clientele-slider-horizontal {
+    width: 15rem;
+    margin-left: auto;
+    height: 8px;
+    background: #F9D8B4;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+}
+
+/* Slider track styling */
+.clientele-slider-horizontal::-webkit-slider-runnable-track {
+    background: #F9D8B4;
+    height: 8px;
+    border-radius: 10px;
+}
+
+.clientele-slider-horizontal::-moz-range-track {
+    background: #F9D8B4;
+    height: 8px;
+    border-radius: 10px;
+}
+
+/* Thumb styling */
+.clientele-slider-horizontal::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--sandy-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--ivory);
+    appearance: none;
+    margin-top: -6px; /* Centers thumb on track */
+}
+
+.clientele-slider-horizontal::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--sandy-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--ivory);
+}

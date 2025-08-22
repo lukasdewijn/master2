@@ -1,0 +1,50 @@
+.wrapped-dashboard{
+    height: 100%;
+    padding: 2.5% 5% 2.5% 5% ;
+    background: var(--ivory);
+    border: medium solid var(--ivory);
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-emulator{
+    display: flex;
+    width: 95%;
+    border-radius: 2rem;
+    padding: 0.3rem;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+/* de pijltjes */
+.carousel-btn {
+    /* Reset browser defaults */
+    margin:0;
+    padding: 0;
+    line-height: 1;
+    background: var(--sandy-brown);
+    border: none;
+    cursor: pointer;
+
+    /* maak ’m een flexbox zodat de inhoud mooi center staat */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* nu wél een vaste grootte */
+    width: 3rem;
+    height: 3rem;
+
+    /* styling */
+    font-size: 1.5rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: var(--ivory);
+    color: var(--oxford-blue);
+}

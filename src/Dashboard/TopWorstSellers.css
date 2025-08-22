@@ -1,0 +1,269 @@
+.top-worst-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.centre-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    margin-right: 2rem;
+
+}
+
+.segment-section, .items-section {
+    background-color: var(--ivory);
+    border-radius: 2rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.segment-bars {
+    display: flex;
+    justify-content: space-around;
+}
+
+.segment-bar {
+    text-align: center;
+}
+
+.bar-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--sandy-brown);
+}
+
+.segment-button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.segment-button:hover {
+    background-color: var(--sandy-brown);
+}
+
+.items-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: calc(100vh - 6rem); /* Adjust the height dynamically */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 1rem; /* Space for the scrollbar */
+    background-color: var(--ivory); /* Background color */
+}
+
+/* Custom Scrollbar Styling */
+.items-list::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.items-list::-webkit-scrollbar-track {
+    background: var(--ivory); /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.items-list::-webkit-scrollbar-thumb {
+    background: #0E1C3622; /* Gradient color */
+
+    border-radius: 10px; /* Rounded corners */
+
+}
+
+.items-list::-webkit-scrollbar-thumb:hover {
+    background: #0E1C3655; /* Darker gradient on hover */
+}
+
+
+.list-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--oxford-blue);
+    font-weight: bold;
+}
+
+.header-title p {
+    color: var(--sandy-brown);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.header-title h2 {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.section-order {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+    color: var(--oxford-blue);
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: normal;
+}
+
+.section-order .order-button {
+    transition: color 0.05s ease, font-weight 0.05s ease;
+}
+
+.section-order .order-button:hover {
+    text-decoration: underline;
+    color: var(--sandy-brown);
+}
+
+.section-order .order-button.active {
+    color: var(--sandy-brown);
+    font-weight: bolder;
+}
+
+
+.items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--ivory);
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+    padding: 2rem 1rem 2rem 2rem;
+    border-radius: 1.5rem;
+    border: 0.15rem solid var(--sandy-brown);
+    font-weight: bold;
+    color: var(--oxford-blue);
+    font-size: x-large;
+}
+
+.item-name{
+    font-weight: bold;
+    color: var(--oxford-blue);
+    font-size: x-large;
+    margin-right: 1rem;
+}
+
+.item-count {
+    display: flex;
+    justify-content: flex-end;
+    font-size: x-large;
+    font-weight: normal;
+    margin-right: 1rem;
+}
+
+.search-bar {
+    margin-left: auto;
+    margin-right: 1.8rem;
+    display: flex;
+    align-items: center;
+    background-color: #fde3d6; /* Light peach background */
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    width: 15rem; /* Adjust width */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1rem;
+    color: #fa954b;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    color: #fa954b;
+    opacity: 0.7;
+}
+
+.item-icons{
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.item-main{
+    display: flex;
+}
+
+.debug-segments{
+    color: black;
+}
+
+.item-diff{
+    font-size: small;
+}
+
+.item-stats{
+    display: flex;
+    align-items: center;
+}
+
+/* Statistics cards container */
+.stats-cards {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Elke individuele kaart */
+.stat-card {
+    background: var(--ivory);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    flex: 1 1 200px; /* min-width 200px, groeit mee */
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stat-card h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.stat-card p {
+    margin: 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Hover effect */
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.stat-card-item{
+    font-size: 1.2rem;
+}
+
+.stat-card-number{
+    font-size: 2rem;
+    color: black;
+    font-weight: 500;
+}

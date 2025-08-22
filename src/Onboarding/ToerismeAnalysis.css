@@ -1,0 +1,93 @@
+.toerisme-analysis-container {
+    padding: 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--oxford-blue);
+}
+
+.toerisme-analysis-subtitle {
+    font-size: 1.2rem;
+    color: var(--oxford-blue);
+    margin-bottom: 2rem;
+}
+
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    gap: 1rem;
+}
+
+.label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--oxford-blue);
+    flex-shrink: 0;
+}
+
+.slider-container {
+    position: relative;
+    flex-grow: 1;
+    height: 40px;
+}
+
+.tooltip {
+    position: absolute;
+    top: -35px; /* Position tooltip above the slider */
+    transform: translateX(-50%);
+    background-color: var(--sandy-brown);
+    color: var(--ivory);
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: left 0.2s ease; /* Smooth transition for tooltip */
+}
+
+.toerisme-slider {
+    width: 100%;
+    margin-top: 1rem;
+    height: 8px;
+    background: #F9D8B4;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+}
+
+/* Slider track styling */
+.toerisme-slider::-webkit-slider-runnable-track {
+    background: #F9D8B4;
+    height: 8px;
+    border-radius: 10px;
+}
+
+.toerisme-slider::-moz-range-track {
+    background: #F9D8B4;
+    height: 8px;
+    border-radius: 10px;
+}
+
+/* Thumb styling */
+.toerisme-slider::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--sandy-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--ivory);
+    appearance: none;
+    margin-top: -6px;
+}
+
+.toerisme-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--sandy-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--ivory);
+}

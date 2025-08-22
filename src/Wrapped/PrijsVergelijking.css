@@ -1,0 +1,103 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--oxford-blue);
+    color: var(--ivory);
+}
+
+.page-container {
+    padding-bottom: -0.5rem;
+    height: 100%;
+    width: 50rem;
+}
+
+.prijs-vergelijken-container {
+
+    color: var(--oxford-blue);
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    border: thick solid var(--sandy-brown);
+    border-radius: 2rem;
+}
+
+.prijs-vergelijken-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.prijs-vergelijken-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.prijs-vergelijken-items-container {
+    padding: 1rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    background: var(--oxford-blue);
+    border-radius: 22px 22px 1.7rem 1.7rem;
+}
+
+.prijs-vergelijken-item {
+    padding: 0.5rem 1rem 0.5rem 1.3rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.prijs-vergelijken-item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prijs-vergelijken-item-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.prijs-vergelijken-comparison {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.prijs-vergelijken-description {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Specific colors for each item */
+.prijs-vergelijken-item-1 {
+    background-color: var(--sandy-brown);
+}
+
+.prijs-vergelijken-item-2 {
+    background-color: var(--ivory);
+    color: var(--oxford-blue);
+}
+
+.prijs-vergelijken-item-3 {
+    background-color: var(--light-cyan);
+    color: var(--oxford-blue);
+}
+
+.prijs-vergelijken-item-4 {
+    background-color: var(--jordy-blue);
+}
+
+.prijs-vergelijken-item-5 {
+    background-color: var(--bice-blue);
+    color: var(--ivory);
+}

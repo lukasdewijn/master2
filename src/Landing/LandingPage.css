@@ -1,0 +1,162 @@
+/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--oxford-blue);
+}
+
+/* Main container */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Left Section */
+.content {
+    flex: 2;
+    padding: 3rem;
+    background-color: #F8F8F5;
+    border-radius: 0 3rem 3rem 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+}
+
+.logo {
+    display: flex;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FF7F32;
+}
+
+.logo img {
+    width: 3.5rem;
+    margin-right: 8px;
+}
+
+.main-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    color: var(--oxford-blue);
+    height: 100%;
+}
+h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: var(--oxford-blue);
+}
+
+p {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.why-billy {
+    font-size: 1.75rem;
+    margin-top: 2rem;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+}
+
+.features li {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+/* Right Section */
+.login-container {
+    flex: 1;
+    background-color: #0C1C3D;
+    color: white;
+    padding: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-title {
+    font-size: 3rem;
+    color: #FF7F32;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bolder;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.login-section, .register-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--sandy-brown);
+}
+
+h3 span {
+    font-weight: normal;
+    color: #D3D3D3;
+}
+
+/* Input fields styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%; /* Ensure inputs and labels align properly */
+    margin-bottom: 1.5rem; /* Adds spacing between each input group */
+}
+
+input {
+    width: 100%; /* Make inputs fill container */
+    padding: 0.8rem;
+    border: none;
+    border-radius: 2rem;
+    background: #F8D1AD;
+}
+
+.login-btn, .register-btn {
+    width: 70%;
+    padding: 0.8rem;
+    border: none;
+    cursor: pointer;
+    font-size: xx-large;
+    background-color: #FF7F32;
+    color: white;
+    border-radius: 2rem;
+    margin-top: 2rem;
+}
+
+.login-btn {
+margin-bottom: 5rem;
+}
+
+.register-btn {
+    background-color: #FF7F32;
+    color: white;
+    border-radius: 2rem;
+}
+
+.login-btn:hover, .register-btn:hover {
+    opacity: 0.9;
+}
+
+label {
+    display: block; /* Zorgt ervoor dat het label boven het inputveld blijft */
+    text-align: left; /* Links uitlijnen */
+    width: 90%; /* Zorgt ervoor dat het label even breed is als de inputvelden */
+    font-size: 1rem;
+    font-weight: lighter;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+    margin-left: 0.7rem;
+    color: var(--ivory); /* Pas aan naar wens */
+}
