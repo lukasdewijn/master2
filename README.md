@@ -1,6 +1,6 @@
 README
 
-This document provides instructions for setting up and running the demo website for my master’s thesis. Follow the steps below to install dependencies, start the server, and log in to the application.
+This document provides instructions for setting up and running the demo website for our master’s thesis. Follow the steps below to install dependencies, start the server, and log in to the application.
 
 Prerequisites:
 
@@ -8,32 +8,11 @@ Prerequisites:
 
     npm (Node Package Manager)
 
-INSTALLATION
+INSTALLATION AND RUNNING THE DEMO
 
-Clone the repository to your local machine:
+run following command in the terminal to install and run the demo. 
 
-    git clone <repository-url>
-    cd <repository-folder>
-
-Install dependencies by running:
-
-    npm install
-
-RUNNING THE DEMO
-
-Execute the following commands in sequence to start the demo website:
-
-Start the development server:
-
-    npm start
-
-Navigate to the source directory:
-
-    cd src
-
-Launch the application:
-
-    node server.js
+    npm run setup 
 
 The server will start on http://localhost:3000 by default. Open your web browser and navigate to this address to view the demo.
 
@@ -45,6 +24,20 @@ Use the following credentials to log in to the application:
 
     Password: aaa
 
-Notes
+
 
 Ensure that no other application is running on port 3000 before starting the server.
+
+DISCLAIMER ON AI-ASSISTED CODE GENERATION
+
+Parts of the source code in this repository may have been written or refactored with the assistance of large language models (LLMs), specifically OpenAI’s GPT models (ChatGPT). These tools were employed to accelerate development, explore alternative implementations, and resolve programming issues.
+
+While the generated code was always reviewed, tested, and adapted by the author to fit the project requirements, it is important to note that the use of AI systems may introduce risks such as:
+
+non-optimal or verbose code structures,
+
+hidden security vulnerabilities,
+
+unintentional similarity with publicly available code snippets.
+
+The final responsibility for the correctness, functionality, and scientific integrity of the code remains with the author.
