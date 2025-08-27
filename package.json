@@ -46,5 +46,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "setup": "npm install && npm run dev",
+    "dev": "concurrently \"npm start\" \"cd src && node server.js\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
   }
 }
