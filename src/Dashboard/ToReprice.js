@@ -25,9 +25,9 @@ const ToReprice = () => {
     const berekenPriceSensitivity = (low, high, floor, ceiling) => {
         const ratio = (high - low) / (ceiling - floor);
 
-        if (ratio >= 0.6) return { label: "low", kleur: "#388e3c" };      // groen
+        if (ratio >= 0.6) return { label: "laag", kleur: "#388e3c" };      // groen
         if (ratio >= 0.3) return { label: "medium", kleur: "#e69e6a" };   // oranje
-        return { label: "high", kleur: "#d32f2f" };                       // rood
+        return { label: "hoog", kleur: "#d32f2f" };                       // rood
     };
 
     const bepaalCannibalisationRisk = (cat, countsByCategory) => {
@@ -35,9 +35,9 @@ const ToReprice = () => {
         const ideal = idealCounts[cat] || 1; // voorkom deling door 0
         const ratio = actual / ideal;
 
-        if (ratio >= 1.2) return { label: 'high', kleur: '#d32f2f' };
+        if (ratio >= 1.2) return { label: 'hoog', kleur: '#d32f2f' };
         if (ratio >= 0.9) return { label: 'medium', kleur: '#e69e6a' };
-        return { label: 'low', kleur: '#388e3c' };
+        return { label: 'laag', kleur: '#388e3c' };
     };
 
     const idealCounts = {
