@@ -30,12 +30,6 @@ const Sidebar = ({ onSelectionChange, selectedOption }) => {
                     To add
                 </li>
                 <li
-                    className={`sidebar-list-item ${selectedOption === 'to-remove' ? 'active' : ''}`}
-                    onClick={() => handleClick('to-remove')}
-                >
-                    To remove
-                </li>
-                <li
                     className={`sidebar-list-item ${selectedOption === 'to-reprice' ? 'active' : ''}`}
                     onClick={() => handleClick('to-reprice')}
                 >
